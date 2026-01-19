@@ -1,5 +1,5 @@
 # Hugo Configuration
-baseURL = "/"
+baseURL = "https://rkinas.github.io/si/"
 languageCode = "pl"
 title = "Super Intelligence"
 
