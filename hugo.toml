@@ -1,0 +1,40 @@
+# Hugo Configuration
+baseURL = "/"
+languageCode = "pl"
+title = "Super Intelligence"
+
+# Multilingual configuration
+defaultContentLanguage = "pl"
+defaultContentLanguageInSubdir = true
+
+[languages]
+  [languages.pl]
+    languageName = "PL"
+    weight = 1
+    title = "Super Intelligence"
+    [languages.pl.params]
+      description = "Badania nad sztuczną inteligencją"
+  [languages.en]
+    languageName = "EN"
+    weight = 2
+    title = "Super Intelligence"
+    [languages.en.params]
+      description = "Artificial Intelligence Research"
+
+[params]
+  author = "Remigiusz Kinas"
+  description = "AI at the Threshold of 2026"
+
+[markup]
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 4
+    ordered = false
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+[outputs]
+  home = ["HTML"]
+  section = ["HTML"]
+  page = ["HTML"]

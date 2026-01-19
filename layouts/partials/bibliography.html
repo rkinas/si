@@ -1,0 +1,19 @@
+{{ with .Params.bibliography }}
+<section class="bibliography" id="bibliography">
+    <h2>{{ if eq $.Lang "pl" }}Bibliografia{{ else }}Bibliography{{ end }}</h2>
+    <ol class="bib-list">
+    {{ range $index, $item := . }}
+        <li id="ref-{{ $item.key }}" class="bib-item">
+            <span class="bib-number">[{{ add $index 1 }}]</span>
+            <span class="bib-content">
+                {{ with $item.authors }}{{ . }}{{ end }}
+                {{ with $item.year }}({{ . }}).{{ end }}
+                {{ with $item.title }}<em>{{ . }}</em>.{{ end }}
+                {{ with $item.source }}{{ . }}.{{ end }}
+                {{ with $item.url }}<a href="{{ . }}" target="_blank" rel="noopener">Link</a>{{ end }}
+            </span>
+        </li>
+    {{ end }}
+    </ol>
+</section>
+{{ end }}

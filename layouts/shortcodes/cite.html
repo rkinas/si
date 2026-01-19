@@ -1,0 +1,18 @@
+{{- $key := .Get 0 -}}
+{{- $bib := index .Page.Params.bibliography 0 -}}
+{{- range $index, $item := .Page.Params.bibliography -}}
+    {{- if eq $item.key $key -}}
+        {{- $bib = $item -}}
+        <span class="cite">
+            <a href="#ref-{{ $key }}" class="cite-link">[{{ add $index 1 }}]</a>
+            <span class="cite-tooltip">
+                {{- with $item.authors }}{{ . }}{{ end }}
+                {{- with $item.year }} ({{ . }}){{ end }}
+                {{- with $item.title }}: {{ . }}{{ end }}
+                {{- with $item.url }}
+                <a href="{{ . }}" target="_blank" rel="noopener" class="cite-url">Link</a>
+                {{- end }}
+            </span>
+        </span>
+    {{- end -}}
+{{- end -}}

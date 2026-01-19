@@ -1,0 +1,19 @@
+<div class="lang-switch">
+    {{ range .Site.Languages }}
+    {{ $lang := . }}
+    {{ $url := (printf "/%s/" .Lang) | relURL }}
+    {{ range $.Translations }}
+        {{ if eq .Lang $lang.Lang }}
+            {{ $url = .RelPermalink }}
+        {{ end }}
+    {{ end }}
+    {{ if eq $lang.Lang $.Lang }}
+        {{ $url = $.RelPermalink }}
+    {{ end }}
+    <a href="{{ $url }}"
+       class="lang-link {{ if eq $lang.Lang $.Lang }}active{{ end }}"
+       {{ if eq $lang.Lang $.Lang }}aria-current="true"{{ end }}>
+        {{ $lang.LanguageName }}
+    </a>
+    {{ end }}
+</div>

@@ -1,0 +1,71 @@
+{{ define "main" }}
+<article class="article">
+    <header class="article-header">
+        <h1 class="article-title">{{ .Title }}</h1>
+        {{ with .Params.subtitle }}
+        <p class="article-subtitle">{{ . }}</p>
+        {{ end }}
+
+        <div class="article-meta">
+            <span class="author">{{ .Params.author | default .Site.Params.author }}</span>
+            {{ with .Params.email }}
+            <br><a href="mailto:{{ . }}" class="email">{{ . }}</a>
+            {{ end }}
+            {{ with .Params.affiliation }}
+            <br><span class="affiliation">{{ . }}</span>
+            {{ end }}
+        </div>
+
+        <div class="article-controls">
+            {{ partial "language-switch.html" . }}
+            {{ partial "download-buttons.html" . }}
+            <div class="star-rating">
+                <button class="star-btn" data-article="{{ .RelPermalink }}" aria-label="{{ if eq .Lang "pl" }}Polub artykuł{{ else }}Star this article{{ end }}">
+                    <span class="star-icon">☆</span>
+                    <span class="star-text">{{ if eq .Lang "pl" }}Polub{{ else }}Star{{ end }}</span>
+                </button>
+                <span class="star-count" data-article-count="{{ .RelPermalink }}">0</span>
+            </div>
+            <button class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon"></span>
+            </button>
+        </div>
+
+        {{ with .Params.abstract }}
+        <div class="abstract">
+            <h2>{{ if eq $.Lang "pl" }}Streszczenie{{ else }}Abstract{{ end }}</h2>
+            <p>{{ . }}</p>
+        </div>
+        {{ end }}
+
+        {{ with .Params.ai_note }}
+        <div class="ai-note">
+            <strong>{{ if eq $.Lang "pl" }}Nota o wykorzystaniu AI:{{ else }}AI Assistance Note:{{ end }}</strong>
+            <p>{{ . }}</p>
+        </div>
+        {{ end }}
+
+        {{ with .Params.keywords }}
+        <div class="keywords">
+            <strong>{{ if eq $.Lang "pl" }}Słowa kluczowe:{{ else }}Keywords:{{ end }}</strong>
+            {{ . }}
+        </div>
+        {{ end }}
+    </header>
+
+    <div class="article-layout">
+        <aside class="toc-sidebar">
+            <nav class="toc">
+                <h3>{{ if eq .Lang "pl" }}Spis treści{{ else }}Table of Contents{{ end }}</h3>
+                {{ .TableOfContents }}
+            </nav>
+        </aside>
+
+        <div class="article-body">
+            {{ .Content }}
+
+            {{ partial "bibliography.html" . }}
+        </div>
+    </div>
+</article>
+{{ end }}

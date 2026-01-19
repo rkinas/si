@@ -1,0 +1,12 @@
+<div class="download-buttons">
+    {{ with .Params.pdf_pl }}
+    <a href="{{ . }}" class="btn btn-download" download>
+        <span class="btn-icon">PDF</span> PL
+    </a>
+    {{ end }}
+    {{ with .Params.pdf_en }}
+    <a href="{{ . }}" class="btn btn-download" download>
+        <span class="btn-icon">PDF</span> EN
+    </a>
+    {{ end }}
+</div>

@@ -1,0 +1,29 @@
+{{ define "main" }}
+<div class="home">
+    <header class="home-header">
+        <p class="home-description">{{ if eq .Lang "pl" }}Badania nad sztuczną inteligencją{{ else }}Artificial Intelligence Research{{ end }}</p>
+    </header>
+
+    <div class="home-controls">
+        {{ partial "language-switch.html" . }}
+        <button class="theme-toggle" aria-label="Toggle theme">
+            <span class="theme-icon"></span>
+        </button>
+    </div>
+
+    <section class="articles-list">
+        <h2>{{ if eq .Lang "pl" }}Artykuły{{ else }}Articles{{ end }}</h2>
+        {{ range .Pages }}
+        <article class="article-card">
+            <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+            {{ with .Params.subtitle }}
+            <p class="card-subtitle">{{ . }}</p>
+            {{ end }}
+            {{ with .Params.date }}
+            <time class="article-date">{{ dateFormat "2006-01-02" . }}</time>
+            {{ end }}
+        </article>
+        {{ end }}
+    </section>
+</div>
+{{ end }}
