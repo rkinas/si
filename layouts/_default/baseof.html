@@ -107,73 +107,48 @@
         window.addEventListener('scroll', updateTocHighlight);
         window.addEventListener('load', updateTocHighlight);
 
-        // Star rating system
-        function initStarRating() {
+        // Star button (local bookmark)
+        function initStarButton() {
             const starBtn = document.querySelector('.star-btn');
-            const starCount = document.querySelector('.star-count');
-
             if (!starBtn) return;
 
             const articleId = starBtn.dataset.article;
             const storageKey = 'starred_articles';
-            const countKey = 'star_counts';
 
-            // Get starred articles from localStorage
             function getStarredArticles() {
                 const stored = localStorage.getItem(storageKey);
                 return stored ? JSON.parse(stored) : [];
             }
 
-            // Get star counts from localStorage
-            function getStarCounts() {
-                const stored = localStorage.getItem(countKey);
-                return stored ? JSON.parse(stored) : {};
-            }
-
-            // Check if article is starred
             function isStarred() {
                 return getStarredArticles().includes(articleId);
             }
 
-            // Update UI
             function updateUI() {
                 const starred = isStarred();
-                const counts = getStarCounts();
-                const count = counts[articleId] || 0;
-
                 starBtn.classList.toggle('starred', starred);
                 starBtn.querySelector('.star-icon').textContent = starred ? '★' : '☆';
                 starBtn.querySelector('.star-text').textContent = starred ?
                     (document.documentElement.lang === 'pl' ? 'Polubiono' : 'Starred') :
                     (document.documentElement.lang === 'pl' ? 'Polub' : 'Star');
-                starCount.textContent = count;
             }
 
-            // Toggle star
             starBtn.addEventListener('click', function() {
                 const articles = getStarredArticles();
-                const counts = getStarCounts();
-
                 if (isStarred()) {
-                    // Unstar
                     const index = articles.indexOf(articleId);
                     if (index > -1) articles.splice(index, 1);
-                    counts[articleId] = Math.max(0, (counts[articleId] || 1) - 1);
                 } else {
-                    // Star
                     articles.push(articleId);
-                    counts[articleId] = (counts[articleId] || 0) + 1;
                 }
-
                 localStorage.setItem(storageKey, JSON.stringify(articles));
-                localStorage.setItem(countKey, JSON.stringify(counts));
                 updateUI();
             });
 
             updateUI();
         }
 
-        initStarRating();
+        initStarButton();
 
         // Citation tooltips
         document.querySelectorAll('.cite').forEach(cite => {

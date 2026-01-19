@@ -661,14 +661,8 @@ body {
 }
 
 /* ==========================================================================
-   Star Rating System
+   Star Button
    ========================================================================== */
-
-.star-rating {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
 
 .star-btn {
     display: inline-flex;
@@ -711,14 +705,6 @@ body {
 
 .star-btn:hover .star-icon {
     transform: scale(1.1);
-}
-
-.star-count {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    padding: 0.4rem 0.6rem;
-    background: var(--bg-secondary);
-    border-radius: 4px;
 }
 
 /* ==========================================================================
