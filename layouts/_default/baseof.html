@@ -107,48 +107,6 @@
         window.addEventListener('scroll', updateTocHighlight);
         window.addEventListener('load', updateTocHighlight);
 
-        // Star button (local bookmark)
-        function initStarButton() {
-            const starBtn = document.querySelector('.star-btn');
-            if (!starBtn) return;
-
-            const articleId = starBtn.dataset.article;
-            const storageKey = 'starred_articles';
-
-            function getStarredArticles() {
-                const stored = localStorage.getItem(storageKey);
-                return stored ? JSON.parse(stored) : [];
-            }
-
-            function isStarred() {
-                return getStarredArticles().includes(articleId);
-            }
-
-            function updateUI() {
-                const starred = isStarred();
-                starBtn.classList.toggle('starred', starred);
-                starBtn.querySelector('.star-icon').textContent = starred ? '★' : '☆';
-                starBtn.querySelector('.star-text').textContent = starred ?
-                    (document.documentElement.lang === 'pl' ? 'Polubiono' : 'Starred') :
-                    (document.documentElement.lang === 'pl' ? 'Polub' : 'Star');
-            }
-
-            starBtn.addEventListener('click', function() {
-                const articles = getStarredArticles();
-                if (isStarred()) {
-                    const index = articles.indexOf(articleId);
-                    if (index > -1) articles.splice(index, 1);
-                } else {
-                    articles.push(articleId);
-                }
-                localStorage.setItem(storageKey, JSON.stringify(articles));
-                updateUI();
-            });
-
-            updateUI();
-        }
-
-        initStarButton();
 
         // Citation tooltips
         document.querySelectorAll('.cite').forEach(cite => {

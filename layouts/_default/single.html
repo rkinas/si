@@ -19,10 +19,6 @@
         <div class="article-controls">
             {{ partial "language-switch.html" . }}
             {{ partial "download-buttons.html" . }}
-            <button class="star-btn" data-article="{{ .RelPermalink }}" aria-label="{{ if eq .Lang "pl" }}Polub artykuł{{ else }}Star this article{{ end }}">
-                <span class="star-icon">☆</span>
-                <span class="star-text">{{ if eq .Lang "pl" }}Polub{{ else }}Star{{ end }}</span>
-            </button>
             <button class="theme-toggle" aria-label="Toggle theme">
                 <span class="theme-icon"></span>
             </button>
