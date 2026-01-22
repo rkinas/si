@@ -13,7 +13,7 @@
 
     <section class="articles-list">
         <h2>{{ if eq .Lang "pl" }}Artykuły{{ else }}Articles{{ end }}</h2>
-        {{ range .Pages }}
+        {{ range where .Pages "Layout" "!=" "bio" }}
         <article class="article-card">
             <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
             {{ with .Params.subtitle }}

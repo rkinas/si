@@ -1,0 +1,18 @@
+{{ define "main" }}
+<article class="article bio-page">
+    <header class="article-header">
+        <h1 class="article-title">{{ .Title }}</h1>
+
+        <div class="article-controls">
+            {{ partial "language-switch.html" . }}
+            <button class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon"></span>
+            </button>
+        </div>
+    </header>
+
+    <div class="article-body bio-content">
+        {{ .Content }}
+    </div>
+</article>
+{{ end }}

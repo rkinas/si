@@ -1,5 +1,9 @@
 <header class="site-header">
     <nav class="site-nav">
         <a href="{{ .Site.Home.RelPermalink }}" class="site-logo">SI <span class="logo-subtitle">- Super Intelligence</span></a>
+        <div class="nav-tabs">
+            <a href="{{ .Site.Home.RelPermalink }}" class="nav-tab{{ if .IsHome }} active{{ end }}">Blog</a>
+            <a href="{{ relLangURL "bio" }}" class="nav-tab{{ if and .File (eq .File.ContentBaseName "bio") }} active{{ end }}">Bio</a>
+        </div>
     </nav>
 </header>

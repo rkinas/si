@@ -76,6 +76,36 @@ body {
 .site-nav {
     max-width: 900px;
     margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-tabs {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.nav-tab {
+    padding: 0.4rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.nav-tab:hover {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.nav-tab.active {
+    background: var(--text-primary);
+    color: var(--bg-primary);
+    border-color: var(--text-primary);
 }
 
 .site-logo {
@@ -660,6 +690,74 @@ body {
     margin-top: 0.5rem;
 }
 
+
+/* ==========================================================================
+   Bio Page
+   ========================================================================== */
+
+.bio-page .article-header {
+    margin-bottom: 2rem;
+}
+
+.bio-content {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.bio-content h2 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin: 2rem 0 1rem 0;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.bio-content h2:first-child {
+    margin-top: 0;
+}
+
+.bio-content p {
+    margin: 0 0 1rem 0;
+    line-height: 1.7;
+}
+
+.bio-content hr {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: 2rem 0;
+}
+
+.bio-content ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.bio-content ol li {
+    margin-bottom: 1.5rem;
+    padding-left: 0;
+}
+
+.bio-content ol li strong {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+}
+
+.bio-content ol li em {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.bio-content ol li a {
+    font-size: 0.85rem;
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+.bio-content ol li a:hover {
+    text-decoration: underline;
+}
 
 /* ==========================================================================
    Responsive Design
