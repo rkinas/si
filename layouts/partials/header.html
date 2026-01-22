@@ -4,6 +4,7 @@
         <div class="nav-tabs">
             <a href="{{ .Site.Home.RelPermalink }}" class="nav-tab{{ if .IsHome }} active{{ end }}">Blog</a>
             <a href="{{ relLangURL "bio" }}" class="nav-tab{{ if and .File (eq .File.ContentBaseName "bio") }} active{{ end }}">Bio</a>
+            <a href="/si/en/rl-challenge/" class="nav-tab{{ if and .File (eq .File.ContentBaseName "rl-challenge") }} active{{ end }}">RL 120 days challenge</a>
         </div>
     </nav>
 </header>
