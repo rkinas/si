@@ -7,8 +7,6 @@ layout: "bio"
 
 **Remigiusz Kinas** - Principal AI Researcher at Ingenix.ai, co-author of the Polish language model Bielik. Specializes in AI, particularly in language models and reasoning. In bielik.ai responsble for model optimizations and development of Reinforcement Learning triaining stage.
 
----
-
 ## Publications
 
 1. **Bielik 11B v3: Multilingual Large Language Model for European Languages**
