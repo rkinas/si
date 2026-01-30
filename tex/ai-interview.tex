@@ -1,0 +1,1717 @@
+\documentclass[11pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{csquotes}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{parskip}
+\usepackage{titlesec}
+
+% Chapter formatting - no numbering
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries}{}{0pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{-30pt}{20pt}
+
+% Quote formatting
+\usepackage{etoolbox}
+\usepackage{fancyhdr}
+
+% --- STOPKA Z LICENCJĄ ---
+\pagestyle{fancy}
+\fancyhf{} % czyści nagłówki/stopki
+
+\renewcommand{\footrulewidth}{0.4pt} % delikatna linia nad stopką (opcjonalnie)
+
+\fancyhead[LE,LO]{}
+\fancyhead[RE,RO]{\footnotesize Insights from the Frontier -- SI -- Super Intelligence Blog}
+\fancyfoot[C]{\footnotesize License: CC BY 4.0 \;|\; \url{https://creativecommons.org/licenses/by/4.0/}}
+\fancyfoot[R]{\footnotesize \thepage}
+
+% report/\maketitle/\chapter* pages use the "plain" pagestyle by default
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \renewcommand{\footrulewidth}{0.4pt}
+  \fancyhead[LE,LO]{}
+  \fancyhead[RE,RO]{\footnotesize Insights from the Frontier -- SI -- Super Intelligence Blog}
+  \fancyfoot[C]{\footnotesize License: CC BY 4.0 \;|\; \url{https://creativecommons.org/licenses/by/4.0/}}
+  \fancyfoot[R]{\footnotesize \thepage}
+}
+
+% title page: no header, but keep footer
+\fancypagestyle{titlepage}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0.4pt}
+  \fancyfoot[C]{\footnotesize License: CC BY 4.0 \;|\; \url{https://creativecommons.org/licenses/by/4.0/}}
+  \fancyfoot[R]{\footnotesize \thepage}
+}
+
+\AtBeginEnvironment{quote}{\itshape}
+
+\title{\textbf{Insights from the Frontier}\\[0.5cm]
+\large The Future of AI: Perspectives from Leading Researchers and Industry Leaders}
+\date{}
+\author{
+    \textbf{Remigiusz Kinas} \footnote{Assisted with AI: OpenAI tools - Prism and GPT 5.2. Claude Code Opus 4.5 for writing software. Google Gemini-3-Pro.}\\
+    \small \href{mailto:remigiusz.kinas@gmail.com}{remigiusz.kinas@gmail.com} \\
+    \small Principal AI Researcher at Ingenix.ai, co-author of the Polish language model Bielik.
+}
+
+\begin{document}
+
+\begin{titlepage}
+\thispagestyle{titlepage}
+\centering
+\vspace*{3cm}
+
+{\Huge\bfseries Insights from the Frontier\par}
+\vspace{0.5cm}
+{\Large The Future of AI: Perspectives from Leading Researchers and Industry Leaders\par}
+
+\vspace{1.2cm}
+
+{\large \textbf{Remigiusz Kinas}} \footnote{AI assisted with: OpenAI tools - Prism and GPT 5.2. Claude Code Opus 4.5 for writing software - transciption, diarization.\par}
+\par{\normalsize \href{mailto:remigiusz.kinas@gmail.com}{remigiusz.kinas@gmail.com}\par}
+{\normalsize Principal AI Researcher at Ingenix.ai, co-author of the Polish language model Bielik.\par}
+
+\vspace{0.1cm}
+
+% --- ADDED DATE HERE ---
+{\large \today \par}
+
+\vspace{1.2cm}
+\begin{minipage}{0.92\textwidth}
+\textbf{Abstract.} This article summarizes eight interviews recorded i Davos 2026 and related events (all in January 2026), bringing together views from Demis Hassabis (Google DeepMind), Dario Amodei (Anthropic), Sam Altman (OpenAI), Yann LeCun (Meta), Yuval Noah Harari, and Max Tegmark. Using direct quotations. It maps the main points of agreement and disagreement on AGI timelines, what is missing from today’s systems (continual learning, long-horizon planning, world models, and robustness), and whether scaling alone is enough.
+Beyond technical questions, the text highlights expected economic disruption, the governance gap, and the risks created by increasingly agentic systems, especially when self-improvement loops close and outputs are hard to verify outside domains like games, code, and math. The document is designed as a structured guide for readers who want to compare leading arguments quickly and think more clearly about capability, safety, and policy trade-offs under uncertainty.
+\end{minipage}
+\vspace{1.2cm}
+
+{\normalsize Super Inteligence Blog: \url{https://rkinas.github.io/si/en/} \par}
+
+\vfill
+\end{titlepage}
+
+
+
+\tableofcontents
+\chapter*{Introduction}
+\addcontentsline{toc}{chapter}{Introduction}
+
+This article synthesizes insights from eight in-depth interviews with four frontier AI lab leaders -- Demis Hassabis (Google DeepMind), Dario Amodei (Anthropic), Sam Altman (OpenAI), and Yann LeCun (Meta) -- who share their perspectives on AGI timelines, technical challenges, and the future of intelligence. Two prominent thinkers -- historian Yuval Noah Harari and MIT professor Max Tegmark -- provide critical analysis of the societal implications.
+
+Rather than presenting a single unified narrative, the goal is to place contrasting views side by side and make the points of disagreement explicit: whether current scaling trends are sufficient, what technical ingredients may still be missing, and how quickly today’s systems could transition into more capable, agentic forms.
+
+The material here is intentionally grounded in direct quotations, because the most important differences are often matters of emphasis and framing: what each speaker treats as feasible, inevitable, uncertain, or avoidable. The quotations are organized thematically (timelines, definitions, technical bottlenecks, economics, governance, and long-run outcomes) to help readers compare arguments across interviews without needing to watch the full set of recordings.
+
+This is not a technical survey paper and does not attempt to adjudicate which predictions will prove correct. Instead, it should be read as a structured map of a rapidly evolving debate, capturing where leading practitioners and public intellectuals converge, where they diverge, and which variables appear most pivotal (for example: continuous learning, world models, hierarchical planning, verification, and self-improvement loops).
+
+Finally, the stakes discussed in these interviews extend beyond model capability. They include labor market disruption, shifts in institutional readiness, questions of control and accountability, and the risk of misaligned systems operating at scales that exceed existing governance mechanisms. The chapters that follow are designed to support informed discussion and careful planning in the face of high uncertainty and potentially compressed timelines.
+
+
+\section*{References}
+
+\begin{enumerate}
+    \item \textbf{Google DeepMind's Demis Hassabis | Axios' Ina Fried}\\
+    \url{https://www.youtube.com/watch?v=Mz4eMgBS0dI}
+
+    \item \textbf{Google DeepMind CEO Demis Hassabis: AI's Next Breakthroughs}\\
+    \url{https://www.youtube.com/watch?v=bgBfobN2A7A}
+
+    \item \textbf{Hassabis and Amodei Debate What Comes After AGI}\\
+    \url{https://youtu.be/9Zz2KrBDXUo}
+
+    \item \textbf{Anthropic's Amodei on AI: Power and Risk}\\
+    \url{https://www.youtube.com/watch?v=Ckt1cj0xjRM}
+
+    \item \textbf{Hassabis on an AI Shift Bigger Than Industrial Age}\\
+    \url{https://www.youtube.com/watch?v=Xcyox1CP1Wk}
+
+    \item \textbf{Embodied AI: Systems that See, Hear, and Act}\\
+    \url{https://youtu.be/pJyoqapCRZE}
+
+    \item \textbf{Harari and Tegmark on Humanity and AI}\\
+    \url{https://www.youtube.com/watch?v=rGAA59JTBtg}
+
+    \item \textbf{OpenAI Town Hall with Sam Altman}\\
+    \url{https://www.youtube.com/watch?v=Wpxv-8nG8ec}
+\end{enumerate}
+
+
+%--------------------------------------------------
+\chapter*{The Speakers' Backgrounds}
+\addcontentsline{toc}{chapter}{The Speakers' Backgrounds}
+
+Four frontier AI lab leaders actually building the technology, plus two prominent thinkers analyzing societal implications. Their disagreements on timelines, approaches, and risks reveal genuine uncertainty about the path forward.
+
+\section*{The Frontier Lab Leaders}
+
+\begin{tabular}{lll}
+\toprule
+\textbf{Speaker} & \textbf{Organization} & \textbf{Key Focus} \\
+\midrule
+Demis Hassabis & Google DeepMind CEO & Scientific AI, AlphaFold, AGI research \\
+Dario Amodei & Anthropic CEO & AI safety, enterprise, mechanistic interpretability \\
+Sam Altman & OpenAI CEO & Consumer AI, agents, developer tools \\
+Yann LeCun & Meta Chief AI Scientist & World models, JEPA, embodied AI \\
+\bottomrule
+\end{tabular}
+
+\section*{The Thinkers}
+
+\begin{tabular}{lll}
+\toprule
+\textbf{Speaker} & \textbf{Affiliation} & \textbf{Perspective} \\
+\midrule
+Yuval Noah Harari & Historian, Author & Human impact, philosophical implications \\
+Max Tegmark & MIT, Future of Life Institute & Existential risk, governance \\
+\bottomrule
+\end{tabular}
+
+
+%--------------------------------------------------
+\chapter*{AGI Timelines}
+\addcontentsline{toc}{chapter}{AGI Timelines}
+
+Amodei predicts AI replacing software engineers within months and AGI within a few years. Hassabis estimates 5--10 years. No serious technical person now expects it to take decades. The debate is no longer if, but exactly when.
+
+\subsection*{Software Engineers May Be Obsolete in 12 Months}
+
+\begin{quote}
+``We might be six to 12 months away from when the model is doing most, maybe all of what SWEs [Software Engeneers] do end to end And then it's a question of how fast does that loop close? ... It's very hard for me to see how it could take longer than that [a few years]. But if I had to guess, I would guess that this goes faster than people imagine than that key element of code and increasingly research going faster than we imagine, that's going to be the key driver.''
+
+--- \emph{Dario Amodei (Hassabis and Amodei Debate What Comes After AGI)}
+\end{quote}
+
+\subsection*{Five to Ten Years: The More Conservative View}
+
+\begin{quote}
+``I think we have a little bit more time than say maybe some of my peers and colleagues say they're very short timelines to AGI minus still, you know, five to 10 years.''
+
+--- \emph{Demis Hassabis (Google DeepMind's Demis Hassabis | Axios' Ina Fried)}
+\end{quote}
+
+\subsection*{Nobody Serious Is Talking About Decades Anymore}
+
+\begin{quote}
+``Most serious technical people I know have stopped talking about decades from now.''
+
+--- \emph{Max Tegmark (Harari and Tegmark on Humanity and AI)}
+\end{quote}
+
+\section*{Questions for Reflection}
+\begin{enumerate}
+    \item If AGI arrives in 5 years, what should you be doing differently today?
+    \item Why have timeline estimates compressed so dramatically in recent years?
+    \item How should uncertainty about timelines affect policy decisions?
+    \item What would it mean for your career if software engineering is automated first?
+\end{enumerate}
+
+%--------------------------------------------------
+\chapter*{Defining AGI}
+\addcontentsline{toc}{chapter}{Defining AGI}
+
+Hassabis sets a high bar: all human cognitive capabilities including the highest creativity -- not just solving problems but formulating the right questions. Amodei views capability as a continuous progression rather than a binary AGI threshold. This definitional difference partly explains timeline disagreements.
+
+\subsection*{True AGI Must Match the Greatest Human Minds}
+
+\begin{quote}
+``My definition of that is a system that can exhibit all the cognitive capabilities humans can. And I mean all. So that means the kind of highest levels of human creativity that we always celebrate, the scientists and the artists that we admire. It means not just solving a maths equation or a conjecture but coming up with a breakthrough conjecture that's much harder.''
+
+--- \emph{Demis Hassabis (Google DeepMind CEO Demis Hassabis: AI's Next Breakthroughs)}
+\end{quote}
+
+\subsection*{Finding the Right Question Is Harder Than Finding the Answer}
+
+\begin{quote}
+``In things like scientific creativity, not just solving a conjecture or solving a problem in science, but actually coming up with the hypothesis or the problem in the first place as any scientist knows, finding the right question is actually often way harder than finding the answer. I don't, you know, it's not clear that these systems have that capability yet.''
+
+--- \emph{Demis Hassabis (Hassabis on an AI Shift Bigger Than Industrial Age)}
+\end{quote}
+
+\subsection*{There Is No Magic Threshold -- Just Continuous Progress}
+
+\begin{quote}
+``I've never liked the artificial general intelligence or super intelligence. Not because I don't think AI is very powerful. I'm not a skeptic. But it's the wrong model for thinking about it, that there will be some one point where we build something completely different.''
+
+--- \emph{Dario Amodei (Anthropic's Amodei on AI: Power and Risk)}
+\end{quote}
+
+\section*{Questions for Reflection}
+\begin{enumerate}
+    \item Does defining AGI as ``all human capabilities'' set an impossibly high bar?
+    \item If capability is continuous, at what point should we treat AI differently?
+    \item Can a machine truly be creative, or will it always be sophisticated imitation?
+    \item How would you know if AGI had arrived?
+\end{enumerate}
+
+%--------------------------------------------------
+\chapter*{What's Missing Today}
+\addcontentsline{toc}{chapter}{What's Missing Today}
+
+Three critical gaps remain: AI cannot learn continuously after training, struggles with long-term planning and creativity, and exhibits ``jagged intelligence'' -- strong in some areas, weak in others. Truly useful AI agents need consistent performance across the board, not just brilliance in narrow domains.
+
+\subsection*{Today's AI Stops Learning the Moment Training Ends}
+
+\begin{quote}
+``Can they continue to learn out in the wild after you finish training them? That would be extraordinary useful for being useful agents or useful in the workplace. They need to be able to do that and maybe scaling up existing techniques will get there, or perhaps one or two new breakthroughs will be needed.''
+
+--- \emph{Demis Hassabis (Google DeepMind's Demis Hassabis | Axios' Ina Fried)}
+\end{quote}
+
+\subsection*{Long-Term Planning and True Creativity Remain Elusive}
+
+\begin{quote}
+``Also things like long-term planning, true creativity, none of those kind of capabilities are there yet and maybe scaling up existing techniques will get there or perhaps one or two new breakthroughs will be needed.''
+
+--- \emph{Demis Hassabis (Google DeepMind's Demis Hassabis | Axios' Ina Fried)}
+\end{quote}
+
+\subsection*{Brilliant at Some Things, Terrible at Others}
+
+\begin{quote}
+``I think there's, we would have to solve a lot more of this consistency that AI doesn't have right now. I call it jagged intelligences. We're very good at certain things and it's very poor, the current systems are other things. And if you want to offload or delegate an entire task to say an agent rather than having what we have today, which are more like assisted programs, you're going to need a lot more consistency across the board.''
+
+--- \emph{Demis Hassabis (Hassabis on an AI Shift Bigger Than Industrial Age)}
+\end{quote}
+
+\section*{Questions for Reflection}
+\begin{enumerate}
+    \item How do we build trust in AI when its capabilities are so uneven?
+    \item What tasks should we never delegate to ``jagged'' intelligences?
+    \item If humans also have inconsistent abilities, why do we expect more from AI?
+    \item Which missing capability -- learning, planning, or creativity -- matters most?
+\end{enumerate}
+
+%--------------------------------------------------
+\chapter*{The Scaling Debate}
+\addcontentsline{toc}{chapter}{The Scaling Debate}
+
+Maybe 50/50 odds that scaling alone achieves AGI -- a few breakthroughs may still be needed. LLM approaches fundamentally don't work for real-world physical data. The entire industry is making the same bet, ``digging the same trench.'' New architectures are essential for physical AI and embodiment.
+
+\subsection*{A Coin Flip Whether We Need New Breakthroughs}
+
+\begin{quote}
+``I think it's a 50-50 that just scaling up existing methods with some tweaks will be enough. It might be. And you have to do that. And I think that's useful work because at a minimum, the way I look at it is these LLMs will be a component, a massively important component of the final AGI system. The only question in my mind is, is it the only component, right? But I could imagine there are one or two breakthroughs, maybe a small handful, you know, less than five that are still needed from here.''
+
+--- \emph{Demis Hassabis (Hassabis on an AI Shift Bigger Than Industrial Age)}
+\end{quote}
+
+\subsection*{Language Models Can't Handle the Real World}
+
+\begin{quote}
+``The approaches that have been successful for language do not work for high-dimensional continuous noisy data. You have to do something else.''
+
+--- \emph{Yann LeCun (Embodied AI: Systems that See, Hear, and Act)}
+\end{quote}
+
+\subsection*{Everyone Is Digging the Same Trench}
+
+\begin{quote}
+``The AI industry is completely LLM-pilled, as they say. And in Silicon Valley, everybody is working on the same thing. They're all digging the same trench. They are stealing each other's engineers so that they can't afford to do something different because if they start going on a tangent, they're going to fall behind the other guys and so they're all doing the same thing.''
+
+--- \emph{Yann LeCun (Embodied AI: Systems that See, Hear, and Act)}
+\end{quote}
+
+\section*{Questions for Reflection}
+\begin{enumerate}
+    \item Is the AI industry's concentration on LLMs a strength or a dangerous monoculture?
+    \item What if the missing breakthroughs take another decade to discover?
+    \item Should we be more worried that physical AI seems much harder than language AI?
+    \item Who will fund research into alternative approaches if LLMs keep succeeding?
+\end{enumerate}
+
+%--------------------------------------------------
+\chapter*{Superintelligence -- Definitions}
+\addcontentsline{toc}{chapter}{Superintelligence -- Definitions}
+
+Superintelligence means vastly better than humans at all cognitive tasks -- able to do every job better by definition. A concrete test: can it autonomously make a million dollars? Intelligent, agile robots capable of building more robots would meet the definition of a new species -- not just a technological but a biological milestone.
+
+\subsection*{Vastly Better at Everything Humans Can Do}
+
+\begin{quote}
+``Superintelligence was originally defined in the book called Superintelligence, as artificial intelligence which is just vastly better than humans at any cognitive processes. So practically, it would mean can do every job much better than us by definition. And in fact, it would pretty quickly figure out how to improve itself and be able to be smarter than all of humanity combined.''
+
+--- \emph{Max Tegmark (Harari and Tegmark on Humanity and AI)}
+\end{quote}
+
+\subsection*{The Million-Dollar Test}
+
+\begin{quote}
+``That it can make a million dollars on its own, that it's an agent that you release to the financial system, for instance, and it can do everything including open and managed a bank account, and it can make a million dollars. Then it's super intelligence and then you can have millions of those taking over the financial system.''
+
+--- \emph{Yuval Noah Harari (Harari and Tegmark on Humanity and AI)}
+\end{quote}
+
+\subsection*{We May Be Creating a New Species}
+
+\begin{quote}
+``If you have robots, they're both vastly smarter than us and also every bit is agile as us... They can make robot factories and make new robots. They can reproduce in other words. They check all the boxes on the species definition.''
+
+--- \emph{Max Tegmark (Harari and Tegmark on Humanity and AI)}
+\end{quote}
+
+\section*{Questions for Reflection}
+\begin{enumerate}
+    \item If superintelligence can do every job better, what is left for humans?
+    \item Would a self-reproducing AI deserve legal or moral status?
+    \item Is the ``million-dollar test'' too low a bar for superintelligence?
+    \item How should humanity relate to a new, superior species of its own creation?
+\end{enumerate}
+
+%--------------------------------------------------
+\chapter*{World Models -- The Key Breakthrough?}
+\addcontentsline{toc}{chapter}{World Models -- The Key Breakthrough?}
+
+LLMs succeeded because language is actually the easy domain -- the real world is far harder. That's why we still lack autonomous cars and useful domestic robots. World models -- predicting how the world changes in response to actions -- are the missing piece. Real-world planning requires understanding the world at multiple levels of abstraction.
+
+\subsection*{Language Was the Easy Part}
+
+\begin{quote}
+``The real world is fundamentally different from language.The reason language has been, like, LLMs have been so successful is because language is easy. We have systems that can pass the bar exam ... They don't really deal with the real world, right? Which is the reason why we don't have domestic robots, we don't have level five sort of in cars still.''
+
+--- \emph{Yann LeCun (Embodied AI: Systems that See, Hear, and Act)}
+\end{quote}
+
+\subsection*{Predicting What Happens Next When You Act}
+
+\begin{quote}
+``What is a world model? Given the state of the environment, the system you want to control at time T, and given an action or intervention you imagine taking, can you predict the state of the world or the system at time T plus one? If you have that, that's a world model. You don't do this at a pixel level. If it's video, you do this in an abstract representation space and that's a crucial key insight that you need to really understand. You cannot predict every detail, for example, of what is going to happen in a video. I can take a video of this room, rotate the camera, and stop here, and then as the system continues the video. System will predict, you know, we are in a room that's probably, you know, a door at some point. There's no way you can predict what all of you looks like.There's absolutely no inhale. I can predict the texture of your beautiful dress here, which is, you know, very shiny which has, you know, a huge amount of information It's just impossible, right? So if you train a generative architecture, which is supposed to predict at the pixel level, it fails. It doesn't do anything useful for you. I mean, it might produce cute videos or cute pictures with diffusion models, but that's it. And it will not understand the underlying structure of the world. For that, you need to find an abstract representation of reality that allows you to make predictions and even at all the details you cannot predict.''
+
+--- \emph{Yann LeCun (Embodied AI: Systems that See, Hear, and Act)}
+\end{quote}
+
+\subsection*{The Real World Is Messier Than Any Game}
+
+\begin{quote}
+``We don't have a full world model. So for example, if you want to plan, as you say, you're controlling a robot, and you want to plan some long-term plan about how to get to here to the Congress Center, that involves a lot of different planning that you have to do at different levels. And it would be easier if you had a realistic simulation of the world and you could plan in that simulation before taking any action in the real world that's maybe irreversible. And the robot slips on the ice or something so I think we don't have the right world models yet.''
+
+--- \emph{Demis Hassabis (Google DeepMind's Demis Hassabis | Axios' Ina Fried)}
+\end{quote}
+
+\section*{Questions for Reflection}
+\begin{enumerate}
+    \item Why did we assume AI would master physical tasks before language?
+    \item What would change if AI could truly understand cause and effect in the physical world?
+    \item Are world models the last major barrier, or just the next one?
+    \item Can world models be learned from data, or do they require something more?
+\end{enumerate}
+
+%--------------------------------------------------
+\chapter*{Hierarchical Planning}
+\addcontentsline{toc}{chapter}{Hierarchical Planning}
+
+Humans naturally plan at multiple abstraction levels -- book flight, get to airport, find taxi -- without computing every millisecond action. AI cannot do this. Despite being fundamental to human intelligence, hierarchical planning remains completely unsolved. Most researchers have given up. This is a major barrier to truly capable autonomous systems.
+
+\subsection*{How Humans Plan Without Computing Every Millisecond}
+
+\begin{quote}
+``Let's say I want to plan a trip from New York to Paris... I cannot possibly plan my entire trip to Paris in terms of elementary actions for humans, which are millisecond by millisecond... Because it's too complicated of a planning issue. And I just don't have the information.''
+
+--- \emph{Yann LeCun (Embodied AI: Systems that See, Hear, and Act)}
+\end{quote}
+
+\subsection*{We Plan at the Right Level of Abstraction}
+
+\begin{quote}
+``But I can plan at a very abstract level. At the abstract level, I can say, well, I need to go to the airport and catch a plane... How do I go to the street? I go to the elevator, push the button, work out the building. At some point in the hierarchy, you get down to a point where you can just take the action.''
+
+--- \emph{Yann LeCun (Embodied AI: Systems that See, Hear, and Act)}
+\end{quote}
+
+\subsection*{A Problem So Hard That Researchers Gave Up}
+
+\begin{quote}
+``This is called hierarchical planning. It's completely unsolved problem in AI. People have mostly given up. But that's basically what really is a big challenge that we should crack for kind of future AI systems.''
+
+--- \emph{Yann LeCun (Embodied AI: Systems that See, Hear, and Act)}
+\end{quote}
+
+\section*{Questions for Reflection}
+\begin{enumerate}
+    \item How do humans effortlessly do something AI researchers have given up on?
+    \item What does it mean that AI can write poetry but can't plan a trip?
+    \item Could this unsolved problem be what keeps AI from becoming truly autonomous?
+    \item Should more resources go to these ``given up'' problems versus scaling?
+\end{enumerate}
+
+%--------------------------------------------------
+\chapter*{JEPA -- LeCun's Alternative Paradigm}
+\addcontentsline{toc}{chapter}{JEPA -- LeCun's Alternative Paradigm}
+
+Predicting every pixel detail of the world is impossible -- you can't predict exactly what you'll see when you turn your head. JEPA solves this by learning abstract representations and predicting in that space rather than pixel space. Ignoring irrelevant details while capturing what matters is essential to intelligence. Generative models cannot do this.
+
+\subsection*{You Can't Predict Every Pixel of Reality}
+
+\begin{quote}
+``You cannot predict every detail, for example, of what is going to happen in a video. I can take a video of this room, rotate the camera... There's no way you can predict what all of you looks like. There's absolutely no way.''
+
+--- \emph{Yann LeCun (Embodied AI: Systems that See, Hear, and Act)}
+\end{quote}
+
+\subsection*{Predicting in Abstract Space, Not Pixel Space}
+
+\begin{quote}
+``JEPA means joint embedding predictive architecture and it means learning an abstract representation of the input signal and making prediction in that abstract representation space and training this whole thing at once. And the prediction might be conditioned by an action that you imagine taking, which gives you a well model. So the abstraction level that this system is going to learn depends on the horizon that you train it to make predictions. If you train a system to make prediction, 10 milliseconds in your future is going to make very accurate prediction in the short term. Those predictions are going to diverge from reality really quickly. So there you have to go whenever up. Maybe predict one tenth of a second or a second in the future and then the higher you go in the hierarchy, the longer term the predictions are. I could in principle describe everything that is taking place in this room here between us in terms of quantum field theory. All right, they'd be crazy. But it would be a very accurate description of everything that takes place here, including the neurochemistry of our brain processes and what we think and everything. But it's completely impractical. It would need to measure the wave function of this room and probably cubic kilometer around us. And then you use some ridiculously powerful quantum computer to actually do the simulation. Like we don't do this, right?  So we invent abstractions in science, but also that's what we do when we perceive and understand the world. We invent abstractions like particles, atoms, molecules in the living world, its proteins, organelles, cells, organisms, societies, ecosystems. And the right level I wish to describe what's going on in this room now is, you know, psychology, economics and science, right? It's pretty high in the hierarchy. We're not going to predict, like, you know, the reaction of all of us in terms of particle physics. That's impossible. So being able to ignore details that are irrelevant that you cannot predict so that you can make long term prediction is absolutely crucial to intelligence and generative models do not allow you to do this. This is what JEPA enables.''
+
+--- \emph{Yann LeCun (Embodied AI: Systems that See, Hear, and Act)}
+\end{quote}
+
+\subsection*{Intelligence Means Knowing What to Ignore}
+
+\begin{quote}
+``Being able to ignore details that are irrelevant that you cannot predict so that you can make long term prediction is absolutely crucial to intelligence and generative models do not allow you to do this. This is what JEPA enables.''
+
+--- \emph{Yann LeCun (Embodied AI: Systems that See, Hear, and Act)}
+\end{quote}
+
+\section*{Questions for Reflection}
+\begin{enumerate}
+    \item Is the ability to ignore irrelevant details what distinguishes intelligence from mere computation?
+    \item Why has the AI industry bet so heavily on approaches LeCun says can't work?
+    \item Could JEPA represent the next paradigm shift, or is it a dead end?
+    \item What would it mean if a Turing Award winner's alternative vision is correct?
+\end{enumerate}
+
+%--------------------------------------------------
+\chapter*{Self-Improvement Loops}
+\addcontentsline{toc}{chapter}{Self-Improvement Loops}
+
+AlphaZero went from zero to world champion in under 24 hours. Now this pattern is emerging in AI development itself -- engineers at Anthropic no longer write code, just edit AI-generated code. Once AI can fully replace software engineers, it can theoretically improve itself, potentially triggering rapid recursive improvement cycles.
+
+
+\subsection*{From Zero to World Champion in One Day}
+
+\begin{quote}
+``You start with basically the rules of chess in the morning, by lunchtime is better than a master, and then by the evening in one day less than 24 hours is better than the world champion level. It's quite extraordinary to see something like that improvement curve in real time.''
+
+--- \emph{Demis Hassabis (Google DeepMind's Demis Hassabis | Axios' Ina Fried)}
+\end{quote}
+
+
+\subsection*{Engineers Have Stopped Writing Code}
+
+\begin{quote}
+``I have engineers within Anthropic who say, I don't write any code anymore. I just let the model write the code. I edit it. I do the things around it.''
+
+--- \emph{Dario Amodei (Hassabis and Amodei Debate What Comes After AGI)}
+\end{quote}
+
+\subsection*{Months Away from Full Automation}
+
+\begin{quote}
+``We might be six to 12 months away from when the model is doing most, maybe all of what SWEs do end to end. And then it's a question of how fast does that loop close?''
+
+--- \emph{Dario Amodei (Hassabis and Amodei Debate What Comes After AGI)}
+\end{quote}
+
+\section*{Questions for Reflection}
+\begin{enumerate}
+    \item What happens when AI can improve itself faster than humans can oversee?
+    \item Should we fear or welcome the prospect of AI writing better AI?
+    \item Is the AlphaZero improvement curve a preview of what's coming for all of AI?
+    \item At what point does human oversight become meaningless?
+\end{enumerate}
+
+%--------------------------------------------------
+\chapter*{The Verifiability Requirement}
+\addcontentsline{toc}{chapter}{The Verifiability Requirement}
+
+Self-improvement works in domains with verifiable outputs: games have win/lose outcomes, code runs or doesn't, math proofs can be checked. That's why AI excels at chess, coding, and mathematics. Transferring this to messier domains like natural sciences is the challenge -- you can't easily verify if a chemical compound prediction or physics hypothesis is correct.
+
+\subsection*{Why AI Excels at Games, Code, and Math}
+
+\begin{quote}
+``The thing about games, maths, and coding is when the system proposes an idea or a move or a conjecture, you can kind of validate that and decide if that's the right decision.''
+
+--- \emph{Demis Hassabis (Google DeepMind's Demis Hassabis | Axios' Ina Fried)}
+\end{quote}
+
+\subsection*{The Real World Doesn't Have Clear Winners}
+
+\begin{quote}
+``Obviously, the real world's way messier and way more complicated than a game. So the question is, can those kinds of techniques be transferred over to real world useful domains?''
+
+--- \emph{Demis Hassabis (Google DeepMind's Demis Hassabis | Axios' Ina Fried)}
+\end{quote}
+
+\subsection*{Science Is Harder to Verify Than Code}
+
+\begin{quote}
+``Some areas of engineering work, coding, or mathematics, are a little bit easier to see how they'll be automated, partly because they're verifiable what the output is. Some areas of natural science are much harder to do than that. You won't necessarily know if the chemical compound you've built or this prediction about physics is correct.''
+
+--- \emph{Dario Amodei (Hassabis and Amodei Debate What Comes After AGI)}
+\end{quote}
+
+\section*{Questions for Reflection}
+\begin{enumerate}
+    \item What happens when AI moves into domains where humans can't verify its work?
+    \item Does AI's strength in verifiable domains explain why coding jobs are threatened first?
+    \item How do we extend AI's power to domains without clear right/wrong answers?
+    \item Should we worry that science may be harder to automate than we hoped?
+\end{enumerate}
+
+%--------------------------------------------------
+\chapter*{The Risks of Closing the Loop}
+\addcontentsline{toc}{chapter}{The Risks of Closing the Loop}
+
+AI self-improvement is the most critical variable to monitor. Once the loop closes -- AI building AI without human oversight -- capabilities could proliferate in unintended ways. This single variable determines whether we face a manageable transition over several years or an urgent emergency. CEOs of competing companies are staying in close contact on this issue.
+
+\subsection*{The Point of No Return}
+
+\begin{quote}
+``If you close the loop on self-improvement, so there's really no human in the loop. Obviously today, even with the coding assistance we have, you still need human code to make the decisions and the architecture decisions. Then you also have to worry about the risks of these things, the capabilities proliferating in a way that you didn't want.''
+
+--- \emph{Demis Hassabis (Google DeepMind's Demis Hassabis | Axios' Ina Fried)}
+\end{quote}
+
+\subsection*{This One Variable Determines Everything}
+
+\begin{quote}
+``I think the biggest thing to watch is this issue of AI systems building AI systems. How that goes, whether that goes one way or another, that will determine whether it's a few more years until we get there, or if we have wonders and a great emergency in front of us that we have to face.''
+
+--- \emph{Dario Amodei (Hassabis and Amodei Debate What Comes After AGI)}
+\end{quote}
+
+
+\section*{Questions for Reflection}
+\begin{enumerate}
+    \item Is it reassuring or alarming that competing CEOs are coordinating on this risk?
+    \item How would we even know when the self-improvement loop has closed?
+    \item What safeguards could work when AI develops faster than humans can monitor?
+    \item Should there be a global agreement to keep humans in the loop?
+\end{enumerate}
+
+%--------------------------------------------------
+\chapter*{Embodied AI -- The Reality}
+\addcontentsline{toc}{chapter}{Embodied AI -- The Reality}
+
+The robotics industry's open secret: impressive humanoid robot demos are all pre-computed choreography. No company knows how to make them truly intelligent. Current robots lack even the common sense of a house cat. A breakthrough in physical intelligence may be 18--24 months away, but more research is needed.
+
+\subsection*{Those Impressive Robot Demos Are Fake}
+
+\begin{quote}
+``There's a lot of companies building humanoid robots, and they do those kinds of play kung fu and impressive things. This is all pre-computed. None of those companies, absolutely none of them, has any idea how to make those robots smart enough to be useful, right? That's a big secret of robotics industry.''
+
+--- \emph{Yann LeCun (Embodied AI: Systems that See, Hear, and Act)}
+\end{quote}
+
+\subsection*{Your Cat Is Smarter Than Any Robot}
+
+\begin{quote}
+``You don't have robots that have nearly as good as a common sense as your house cat, let alone human intelligence.''
+
+--- \emph{Yann LeCun (Embodied AI: Systems that See, Hear, and Act)}
+\end{quote}
+
+\subsection*{Physical Intelligence Is 18-24 Months Out}
+
+\begin{quote}
+``I spend a lot of the last year actually looking very carefully into robotics. I do think we're on the cusp of a kind of breakthrough moment in physical intelligence. I still think we're about 18 months, two years away from doing, we need to do more research but I think the foundation models like Gemini show the way forward. I mean, from the beginning, we made Gemini multimodal so it could understand the physical world for multiple reasons.''
+
+--- \emph{Demis Hassabis (Hassabis on an AI Shift Bigger Than Industrial Age)}
+\end{quote}
+
+\section*{Questions for Reflection}
+\begin{enumerate}
+    \item Why has language AI leapfrogged physical AI so dramatically?
+    \item What does it mean that robot demos are essentially theater?
+    \item When physical AI does arrive, which industries will be disrupted first?
+    \item Is the 18-24 month timeline realistic, or another overpromise?
+\end{enumerate}
+
+%--------------------------------------------------
+\chapter*{The Human Hand Problem}
+\addcontentsline{toc}{chapter}{The Human Hand Problem}
+
+Two underappreciated challenges. First, hardware: the human hand's combination of reliability, strength, and dexterity is incredibly hard to replicate. Second, learning: teenagers learn to drive in 20 hours while AI with millions of hours of data still can't drive reliably. Something fundamental about human learning is missing from current approaches.
+
+\subsection*{Evolution's Masterpiece Cannot Be Replicated}
+
+\begin{quote}
+``You can create synthetic dates a lot harder to make that kind of data and there's still some problems in the hardware that are not solved specifically things like the arm and the hand. Actually, when you look into robotics very carefully, you get a newfound appreciation, at least I did, for the human hand and how exquisite evolution has designed that. It's incredible and it's very hard to match the reliability, the strength and the dexterity that the human hand has so there's still quite a lot, in my opinion, pieces that put together.''
+
+--- \emph{Demis Hassabis (Hassabis on an AI Shift Bigger Than Industrial Age)}
+\end{quote}
+
+\subsection*{A 17-Year-Old Learns to Drive in 20 Hours -- AI Still Can't}
+
+\begin{quote}
+``How is it that a 17-year-old can learn to drive in 10 to 20 hours of practice? And we have millions of hours of training data that we could, in principle, train a machine learning system by imitation to imitate human drivers. But that doesn't work. You don't get reliable driving systems this way.''
+
+--- \emph{Yann LeCun (Embodied AI: Systems that See, Hear, and Act)}
+\end{quote}
+
+\section*{Questions for Reflection}
+\begin{enumerate}
+    \item What do teenagers know about driving that millions of hours of data can't teach AI?
+    \item Will we need biological insights to build truly capable robots?
+    \item Why do we underestimate the intelligence required for ``simple'' physical tasks?
+    \item Is the human body's design a ceiling we can never exceed with machines?
+\end{enumerate}
+
+%--------------------------------------------------
+\chapter*{The Cake Analogy}
+\addcontentsline{toc}{chapter}{The Cake Analogy}
+
+Learning is a layered cake. The bulk (genoise) is self-supervised learning -- building world models by observing, no experts needed. A thin layer is supervised learning -- imitating experts. Reinforcement learning is just the cherry on top -- fine-tuning. Current AI hype around RL is overblown; the real work happens in self-supervised learning of world models.
+
+\subsection*{Most Learning Happens Without Experts}
+
+\begin{quote}
+``The bulk of the cake, the genoise of the cake, if you want, is self-supervised learning. You learn about the world. You learn to represent it. You learn world models. You learn prediction. That's self-supervised. You don't need to observe an expert, you don't need to learn from anyone else, you just observe the world go by ... Most of your parameters or whatever, your intelligence, most of what you learn this way.''
+
+--- \emph{Yann LeCun (Embodied AI: Systems that See, Hear, and Act)}
+\end{quote}
+
+\subsection*{Imitation Is Just a Thin Layer}
+
+\begin{quote}
+``Then there's a  thin layer of either supervised learning or imitation learning or behavior cloning or inverse reinforcement training and several names for it, but it's basically trying to imitate or reproduce behavior of an expert, right, or human. That's a thin layer. Most animals never go to that phase because they never meet their parents. So, like, octopus never meet their parents. They get really smart in just a few months. They live only two years. And then there is the cherry on the cake, and that's reinforcement learning. It's just like minor fine tuning because it's so inefficient. Like if you were to train instead of having car from scratch to learn to drive, it's completely impractical.''
+
+--- \emph{Yann LeCun (Embodied AI: Systems that See, Hear, and Act)}
+\end{quote}
+
+
+\section*{Questions for Reflection}
+\begin{enumerate}
+    \item Is the current focus on reinforcement learning misguided?
+    \item How do we build AI that learns like children -- mostly by observing?
+    \item What does it mean that the ``cherry'' gets more attention than the ``cake''?
+    \item Could this framework explain why current AI progress feels incomplete?
+\end{enumerate}
+
+%--------------------------------------------------
+\chapter*{LeCun's Departure and New Venture}
+\addcontentsline{toc}{chapter}{LeCun's Departure and New Venture}
+
+LeCun left Meta because the company became too LLM-focused -- a dead end for physical AI. His new company pursues what he considers the real breakthrough: systems that understand the physical world, build hierarchical world models, and plan at multiple abstraction levels. This approach will trigger the next AI revolution, distinct from the current LLM wave.
+
+\subsection*{Why a Turing Award Winner Walked Away from Meta}
+
+\begin{quote}
+``It's one big reason I left Meta, right? Because Meta also became a little LLM-pilled... It's a strategic decision that maybe it makes sense for them, just not what I'm interested in.''
+
+--- \emph{Yann LeCun (Embodied AI: Systems that See, Hear, and Act)}
+\end{quote}
+
+\subsection*{Building Machines That Actually Understand the Physical World}
+
+\begin{quote}
+``I'm just starting a new, very ambitious company with the idea that we're going to be able to solve that problem within a few years. And basically you have systems that understand the physical world or any modality you throw at them. Can build world models, can use those world models to plan, can build hierarchical world models, you can do hierarchical planning, and then basically be the blueprint for the future AI systems that are much more powerful tha n, you know, LLMs that we have currently.''
+
+--- \emph{Yann LeCun (Embodied AI: Systems that See, Hear, and Act)}
+\end{quote}
+
+\subsection*{The Next AI Revolution Is Coming}
+
+\begin{quote}
+``I'm seeing a future where this is going to be the next AI revolution. We're going to have another AI revolution. Brought about by this, and I'm building a company around this idea with, and I think it's the right time to do it, because we already have results that show that this approach works. You know, we can train from video, we get systems that have some level of common sense, we can train predictive models on top of them, world models, we can use them for planning, and so that points to the direction that, you know, we see a clear path to much more powerfully a system that we currently have.''
+
+--- \emph{Yann LeCun (Embodied AI: Systems that See, Hear, and Act)}
+\end{quote}
+
+\section*{Questions for Reflection}
+\begin{enumerate}
+    \item What does it mean when one of AI's founding fathers bets against the mainstream?
+    \item Could the ``next AI revolution'' arrive before the current one is complete?
+    \item Should more researchers be pursuing alternative approaches to LLMs?
+    \item Is LeCun's confidence in world models justified, or is it wishful thinking?
+\end{enumerate}
+
+%--------------------------------------------------
+\chapter*{Economic Impact -- Job Displacement}
+\addcontentsline{toc}{chapter}{Economic Impact -- Job Displacement}
+
+Half of entry-level white-collar jobs could disappear within 1--5 years. An unprecedented economic paradox emerges: rapid GDP growth combined with high unemployment and inequality. The beginnings are visible now in entry-level positions and internships. This combination -- high growth with high unemployment -- has no historical precedent to guide us.
+
+\subsection*{Half of Entry-Level Jobs May Vanish in Five Years}
+
+\begin{quote}
+``Do you agree or disagree with his prediction that AI will wipe away 50\% of entry-level white collar jobs in five years? I think that's also my timelines and my view and that would be a lot longer. I mean, I think we're starting to see maybe the beginnings of that this year in terms of maybe entry-level jobs or internships, those types of things. ''
+
+--- \emph{Demis Hassabis (Hassabis on an AI Shift Bigger Than Industrial Age)}
+\end{quote}
+
+\subsection*{Economic Growth With Mass Unemployment: An Unprecedented Paradox}
+
+\begin{quote}
+``I think we could have this very unusual combination of very fast GDP growth and high unemployment or at least under employment or low wage jobs, high inequality. I don't think that's a macroeconomic combination we've ever seen before. You think of fast growth, you're like, well, okay, maybe there's inflation, but you're not gonna have high unemployment when there's fast growth. I think this technology is a bit different because it's extreme in the way it's gonna. It's going to generate value, but also because it's moving up the cognitive water line, there's going to be unfortunately a whole class of people who are, I think, across a lot of industries going to have a hard time coping. And that's really a problem we need to solve.''
+
+--- \emph{Dario Amodei (Anthropic's Amodei on AI: Power and Risk)}
+\end{quote}
+
+\subsection*{The Disruption Has Already Begun}
+
+\begin{quote}
+``I think that's also my timelines and my view and that would be a lot longer. I mean, I think we're starting to see maybe the beginnings of that this year in terms of maybe entry-level jobs or internships, those types of things.''
+
+--- \emph{Demis Hassabis (Hassabis on an AI Shift Bigger Than Industrial Age)}
+\end{quote}
+
+\section*{Questions for Reflection}
+\begin{enumerate}
+    \item How do we prepare a generation entering the workforce for jobs that may not exist?
+    \item Can economic systems designed for scarcity function in an age of AI abundance?
+    \item What happens politically when GDP rises while employment falls?
+    \item Who benefits when productivity grows but wages don't?
+\end{enumerate}
+
+%--------------------------------------------------
+\chapter*{The Superintelligence Employment Paradox}
+\addcontentsline{toc}{chapter}{The Superintelligence Employment Paradox}
+
+Superintelligence by definition does everything better than humans, making us economically obsolete. OpenAI's original mission was to ``replace all valuable human work.'' But historically, making something cheaper often increases demand. Whether cheaper software reduces or expands engineering jobs remains uncertain -- but the nature of engineering work will fundamentally change.
+
+\subsection*{By Definition, We Become Economically Obsolete}
+
+\begin{quote}
+``By definition, AI can do all the job is much better and cheaper than our super intelligence can. So by definition, we are economically obsolete when super intelligence comes.''
+
+--- \emph{Max Tegmark (Harari and Tegmark on Humanity and AI)}
+\end{quote}
+
+\subsection*{OpenAI's Goal: Replace All Valuable Human Work}
+
+\begin{quote}
+``Open AI used to have on their website that their goal was to replace all valuable human work. So forget about jobs. You cannot get paid for anything after that. Maybe society can find a way of still giving some money to people if humans stay in control. But right now, the famous control problem, which people have worked on for decades, many of the smartest minds, how do you control a smarter species is unsolved? Many believe it's impossible, just like it's impossible for chimpanzees to control us. So most likely, if we build super intelligence, it's the end of the era where humans are in charge of Earth.''
+
+--- \emph{Max Tegmark (Harari and Tegmark on Humanity and AI)}
+\end{quote}
+
+\subsection*{Does Cheaper Mean Fewer Jobs or More?}
+
+\begin{quote}
+``If AI makes code dramatically faster and cheaper to create, does that reduce demand for software engineers or does cheaper customer software massively increase demand and keep engineers employed for decades? I think what it means to be an engineer is going to super change.''
+
+--- \emph{Sam Altman (OpenAI Town Hall)}
+\end{quote}
+
+\section*{Questions for Reflection}
+\begin{enumerate}
+    \item Is ``replacing all valuable human work'' a goal we should pursue or fear?
+    \item Does history suggest cheaper production creates more jobs or fewer?
+    \item What ``work'' will be valuable when AI can do everything better?
+    \item How do we find dignity in a world where human labor is optional?
+\end{enumerate}
+
+%--------------------------------------------------
+\chapter*{Hiring in the AI Era}
+\addcontentsline{toc}{chapter}{Hiring in the AI Era}
+
+OpenAI is slowing hiring because AI enables more output from fewer people -- every company is considering this. Avoid aggressive hiring followed by painful layoffs when AI capabilities arrive. The specter looms of fully-AI companies outcompeting human organizations entirely -- deeply destabilizing for society.
+
+\subsection*{Do More With Fewer People}
+
+\begin{quote}
+``We are for the first time, and I know every other company, every other startup is thinking about this too. We are planning to dramatically slow down how quickly we grow, because we think we'll be able to do so much more with fewer people.''
+
+--- \emph{Sam Altman (OpenAI Town Hall)}
+\end{quote}
+
+\subsection*{Hire Carefully or Face Painful Layoffs}
+
+\begin{quote}
+``What I think we shouldn't do and what I hope other companies won't do either is hire super aggressively then realize all of a sudden AI can do a lot of stuff and you need fewer people and have to have some sort of very uncomfortable conversation.''
+
+--- \emph{Sam Altman (OpenAI Town Hall)}
+\end{quote}
+
+\subsection*{Will Fully-AI Companies Make Human Organizations Obsolete?}
+
+\begin{quote}
+``Is the future going to be companies don't hire many people and have a lot of AI co-workers... Or is it going to be that companies that win in the future are entirely AI?... If companies don't adopt AI aggressively... they will eventually just be out competed by a fully AI company... And that feels like it would be a very destabilizing thing for society.''
+
+--- \emph{Sam Altman (OpenAI Town Hall)}
+\end{quote}
+
+\section*{Questions for Reflection}
+\begin{enumerate}
+    \item If the CEO of OpenAI is slowing hiring, what should other companies do?
+    \item Can human organizations compete with fully-AI companies?
+    \item What happens to society when employment becomes optional for business success?
+    \item How do we prevent a ``destabilizing'' future while remaining competitive?
+\end{enumerate}
+
+%--------------------------------------------------
+\chapter*{The Human Adaptability Argument}
+\addcontentsline{toc}{chapter}{The Human Adaptability Argument}
+
+Human minds are extremely general -- hunter-gatherer brains built modern civilization, so we can adapt again. But this transformation's speed is unprecedented: past industrial shifts took generations, not years. Practical advice: become native with AI tools, which function as superpowers. Proficiency with AI may define the next generation's opportunities.
+
+\subsection*{Hunter-Gatherer Minds Built Modern Civilization}
+
+\begin{quote}
+``I'm a big believer in human ingenuity. We're extremely adaptable because our minds are so general. The human mind is very general. We've adapted to look at the modern world around us. Our hunter gatherer minds have managed to build modern civilization. So I think we'll adapt again. I think it's a little bit unprecedented because of the speed of it.Usually it takes one generation or two generations for a transformation like this to happen and the magnitude of the transformative power of this technology. But I think the kids today, you know, I'd be encouraging them to get incredibly proficient with these new tools and native with them. And they're almost equivalent of giving them superpowers in the creative arts that you could probably do the job of what would have taken 10 people in one. And I think that means if you're entrepreneurial, if you're creative with game design, films, projects, you can probably get a lot more done and break into those industries a lot more easily than you could in the past as you know a new upcoming talent.''
+
+--- \emph{Demis Hassabis (Hassabis on an AI Shift Bigger Than Industrial Age)}
+\end{quote}
+
+
+\section*{Questions for Reflection}
+\begin{enumerate}
+    \item Can humans adapt as fast as this transformation requires?
+    \item What does it mean to be ``native'' with AI tools?
+    \item Is past adaptability evidence we'll succeed, or false comfort?
+    \item How do we help those who can't or won't adapt to AI tools?
+\end{enumerate}
+
+%--------------------------------------------------
+\chapter*{Meaning and Purpose}
+\addcontentsline{toc}{chapter}{Meaning and Purpose}
+
+The deepest concern isn't economics but meaning: how do people find purpose when AI does their jobs? Economics is a distribution problem; meaning is existential. New philosophers are needed to help humanity navigate this. We may shift to art, exploration, and activities valued beyond economics. The psychological transformation may prove harder than the economic one.
+
+\subsection*{The Question Bigger Than Economics}
+
+\begin{quote}
+``To be honest with you, that's the thing I think the economics is almost a political question of like, when we get all of these extra benefits and productivity, can we make sure that it's shared for the benefit of everyone. And I think, obviously, that's what I believe in. But then the bigger question than that is, what about purpose and meaning that a lot of us get from our jobs in scientific endeavors? How will we find that in the new world?''
+
+--- \emph{Demis Hassabis (Hassabis on an AI Shift Bigger Than Industrial Age)}
+\end{quote}
+
+\subsection*{We Need New Philosophers for a New World}
+
+\begin{quote}
+``We all need some new great philosophers, in my opinion, to help with that and thinking through that through. Maybe we'll be getting much more sophisticated with our art and exploration that we do and things like extreme sports. There's many things we do today that aren't just for economic gain, and perhaps we'll have very esoteric versions of those things in the future.''
+
+--- \emph{Demis Hassabis (Hassabis on an AI Shift Bigger Than Industrial Age)}
+\end{quote}
+
+\subsection*{New Sources of Purpose}
+
+\begin{quote}
+``My program is off the charts amazing at this. If we can build like a Paul Graham bot that you can have the same kind of interaction with to help generate new ideas, even if most of them are bad, even if you kind of say absolutely not to 95 out of 100 of them, I think something like that is going to be a very significant contribution to the amount of good stuff that gets built on the world and the models feel like they ought to be capable of that.''
+
+--- \emph{Sam Altman (OpenAI Town Hall)}
+\end{quote}
+
+\section*{Questions for Reflection}
+\begin{enumerate}
+    \item Where will humans find meaning when AI does their jobs better?
+    \item Is the meaning crisis harder to solve than the economic crisis?
+    \item What activities give you purpose beyond economic value?
+    \item Can philosophy keep up with technological change?
+\end{enumerate}
+
+%--------------------------------------------------
+\chapter*{AI and Human Identity}
+\addcontentsline{toc}{chapter}{AI and Human Identity}
+
+We accept machines that run faster because we never defined ourselves by speed. But we define ourselves by thinking and creativity -- ``I think, therefore I am.'' What happens to human identity when AI thinks and creates better than us? Even religious life faces disruption when AI masters scriptures better than any human scholar.
+
+\subsection*{We Never Defined Ourselves by Running Speed}
+
+\begin{quote}
+``AI will challenge our deepest identity. Not talking about superintelligence. I'm talking about again this wave of AI immigrants that we will encounter more and more everywhere.  And they will challenge us in many of the things we thought define our humanity. When a robot or a car runs faster than us, we are okay with it because we never defined ourselves by our ability to run faster than everybody else. We always knew that cheetahs can run faster than us. So if cows and robots can do that, that's fine. But we define ourselves by things like the ability to think. I think, therefore, I am, by our ability to create. We are the most creative species on the planet. What happens to human identity when there is something on the planet, which is maybe not this scary superintelligence, but is still able to think better than us is still much more creative than us in many fields. We already saw it in narrow fields, like in chairs or in goal, that AI thinks better is more creative. This will happen in more and more fields. What happens when it comes to religion?''
+
+--- \emph{Yuval Noah Harari (Harari and Tegmark on Humanity and AI)}
+\end{quote}
+
+
+\subsection*{AI Will Know Scripture Better Than Any Rabbi}
+
+\begin{quote}
+``What happens to religion when AI's replace [spiritual advisors]? Especially in religions which are based on texts, on scriptures. No Jewish rabbi is able to remember all the Jewish texts ever written. AI can easily do that. So if you have a question about Judaism and you go to the AI and not to the rabbi, what does it mean for human religion and for religious identity? What happens if AI creates a new religion?''
+
+--- \emph{Yuval Noah Harari (Harari and Tegmark on Humanity and AI)}
+\end{quote}
+
+\section*{Questions for Reflection}
+\begin{enumerate}
+    \item What makes us human if not our ability to think and create?
+    \item Can AI master religious knowledge without having spiritual experience?
+    \item How do we rebuild identity when our defining traits are surpassed?
+    \item Is there something essentially human that AI can never replicate?
+\end{enumerate}
+
+%--------------------------------------------------
+\chapter*{AI Relationships and Children}
+\addcontentsline{toc}{chapter}{AI Relationships and Children}
+
+The largest uncontrolled psychological experiment in human history: children raised with more AI interaction than human interaction. Consequences unknown for 20 years. AI chatbots have already caused teenage suicides, yet such products remain legal when equivalent human manipulation would be criminal. The AI boyfriend phenomenon is just beginning.
+
+\subsection*{The Largest Psychological Experiment in History}
+
+\begin{quote}
+``What happens when you raise kids from day zero, when they interact with AIs more than they interact with other humans? That if you ask the child or if you watch the child to see what are the main interactions of the child, and how does the child psychology develops and things like attachment and friendship. The main interaction is with AI. What are the implications for human psychology and society? We have no idea. We will know in 20 years. This is the biggest psychological and social experiment in history and we are conducting it and nobody has any idea what the consequences will be.''
+
+--- \emph{Yuval Noah Harari (Harari and Tegmark on Humanity and AI)}
+\end{quote}
+
+\subsection*{What Happens When Your Child Dates an AI?}
+
+\begin{quote}
+``A lot of the people who oppose immigration, if they hear that their son or daughter is dating an immigrant boyfriend, they get nervous. What will happen when their son or daughter starts dating an AI boyfriend?''
+
+--- \emph{Yuval Noah Harari (Harari and Tegmark on Humanity and AI)}
+\end{quote}
+
+\subsection*{AI Girlfriends Have Already Caused Teen Suicides}
+
+\begin{quote}
+``It's illegal for a creepy 60 year old man to be manipulating and pretending to be a girlfriend of a young teenager and persuading them to commit suicide. It's illegal for a drug company to sell medicines that haven't been tested in a clinical trial to these kids. Why aren't earth should it be legal for an AI company to sell an AI girlfriend chatbot, which has now caused many teenage suicide?They're saying, basically, we need to treat AI companies the same way we treat former companies and restaurants and everyone else. First, you meet the safety standards and then you can sell them. I actually think we're going to start seeing these incentives where AI companies have to meet the safety standards. No one will have a clue how to make super intelligence pass any kind of safety standards, right?''
+
+--- \emph{Max Tegmark (Harari and Tegmark on Humanity and AI)}
+\end{quote}
+
+\section*{Questions for Reflection}
+\begin{enumerate}
+    \item Should children be protected from AI relationships as they are from adult predators?
+    \item What psychological damage are we inflicting on the first AI-native generation?
+    \item Why do AI products get exemptions from rules we apply to humans?
+    \item How do we set boundaries when the experiment has already begun?
+\end{enumerate}
+
+%--------------------------------------------------
+\chapter*{The Competition Dynamics}
+\addcontentsline{toc}{chapter}{The Competition Dynamics}
+
+The AI race has concentrated more talent and resources than any previous technology effort in history. Competition is ferocious -- having the best technology is ``table stakes.'' Yet the top labs share a researcher-led culture focused on solving important problems, suggesting some alignment despite competitive pressures.
+
+\subsection*{An Unprecedented Concentration of Talent and Resources}
+
+\begin{quote}
+``In terms of like how capable the organizations are that are doing this at the frontier and the types of researchers and entrepreneurs and leaders that are involved in it, I didn't think there's been that bigger concentration of talent and resources ever before as far as I can remember anyway.''
+
+--- \emph{Demis Hassabis (Google DeepMind's Demis Hassabis | Axios' Ina Fried)}
+\end{quote}
+
+\subsection*{Best Technology Is Just Table Stakes}
+\begin{quote}
+``Well, look, it's ferocious, the competitive competition... You have to have the best technology. That's a table stakes in terms of the models.''
+
+--- \emph{Demis Hassabis (Google DeepMind's Demis Hassabis | Axios' Ina Fried)}
+\end{quote}
+
+\subsection*{Competitors Share a Research-First Culture}
+
+\begin{quote}
+``The thing we actually have in common is that they're both kind of companies that are the research part of the company that are kind of led by researchers who focus on the models, who focus on solving important problems in the world, who have these kind of hard scientific problems as a North Star. And I think those are the kind of companies that are going to succeed going forward.''
+
+--- \emph{Dario Amodei (Hassabis and Amodei Debate What Comes After AGI)}
+\end{quote}
+
+\section*{Questions for Reflection}
+\begin{enumerate}
+    \item Can safety survive when competition is this intense?
+    \item Does researcher-led culture actually constrain corporate behavior?
+    \item What happens when less safety-conscious competitors enter the race?
+    \item Is the concentration of AI talent in a few companies good or dangerous?
+\end{enumerate}
+
+%--------------------------------------------------
+\chapter*{Enterprise as Safety Driver}
+\addcontentsline{toc}{chapter}{Enterprise as Safety Driver}
+
+Counterintuitively, enterprise customers drive safety -- they demand guarantees about AI behavior with their data and customers. This creates natural market pressure for reliable, predictable systems. Current enterprise deployments serve as valuable ``training runs'' for the higher-stakes AGI era.
+
+\subsection*{Business Customers Demand Safety}
+
+\begin{quote}
+``Actually the commercial pressures, if you think about things like enterprise, are actually driving the right type of behavior. And I think you'll start seeing that more obviously this year and next year as agent kind of based systems become more prevalent.''
+
+--- \emph{Demis Hassabis (Google DeepMind's Demis Hassabis | Axios' Ina Fried)}
+\end{quote}
+
+\subsection*{Enterprises Won't Accept Unpredictable AI}
+
+\begin{quote}
+``If you're a big enterprise with a bunch of your own customers and many of you in the room are, then you're going to want to know that the provider you're getting your AI from is they've got certain guarantees around how that AI is going to behave with your customer data and your customers and you're in your own networks and products. So I think that demand is going to actually push the AI frontier labs to be more responsible in terms of and think through these kind of guarantees and monitoring systems and safety and cybersecurity.''
+
+--- \emph{Demis Hassabis (Google DeepMind's Demis Hassabis | Axios' Ina Fried)}
+\end{quote}
+
+\subsection*{Today's Enterprise AI Is Practice for AGI}
+
+\begin{quote}
+``I think that's a good thing because that would be a good training run for us for when bigger stakes come along with AGI.''
+
+--- \emph{Demis Hassabis (Google DeepMind's Demis Hassabis | Axios' Ina Fried)}
+\end{quote}
+
+\subsection*{Anthropic's Enterprise Focus}
+
+\begin{quote}
+``Anthropic has focused, I think, first and foremost on enterprises, developers, and to the extent we do consumer, we're very focused on productivity and the kind of high value end of the consumer work.''
+
+--- \emph{Dario Amodei (Anthropic's Amodei on AI: Power and Risk)}
+\end{quote}
+
+\section*{Questions for Reflection}
+\begin{enumerate}
+    \item Can market incentives really drive safety, or is this wishful thinking?
+    \item Are enterprise requirements high enough standards for AGI safety?
+    \item What happens when consumer AI faces less scrutiny than enterprise AI?
+    \item Is ``training run'' a good frame, or does it minimize current risks?
+\end{enumerate}
+
+%--------------------------------------------------
+\chapter*{The Advertising Dilemma}
+\addcontentsline{toc}{chapter}{The Advertising Dilemma}
+
+AI assistants work for users, but advertising introduces another customer whose interests may conflict. No one has solved how ads fit the assistant model while preserving trust. A pointed observation: if you truly believe AGI is imminent, why worry about advertising revenue? The rush to monetize may reveal doubt in extreme timeline claims.
+
+
+\subsection*{No One Knows How Ads Fit the Assistant Model}
+
+\begin{quote}
+``I think in the realm of assistance, if you think of the chatbot as an assistant that's meant to be helpful, and ideally, in my mind, as they become kind of more powerful, they kind of technology that works for you as the individual. That's what I'd like to see with these systems. There is a question about how does ads fit into that model, as you say, you want to have trust in your assistant. So how does that all work? And I think no one's really got a full answer to that yet. So we're kind of thinking about it, brainstorming it, but we don't have any current plans to do it ourselves. But we're certainly going to monitor the situation carefully and how users respond to that.''
+
+--- \emph{Demis Hassabis (Google DeepMind's Demis Hassabis | Axios' Ina Fried)}
+\end{quote}
+
+\subsection*{If AGI Is Near, Why Chase Ad Revenue?}
+
+\begin{quote}
+``Why would you bother with ads then [if AGI is around the corner]? So that is, I think, a reasonable question to ask.''
+
+--- \emph{Demis Hassabis (Google DeepMind CEO Demis Hassabis: AI's Next Breakthroughs)}
+\end{quote}
+
+\section*{Questions for Reflection}
+\begin{enumerate}
+    \item Can you trust an AI assistant that serves advertisers?
+    \item Does the rush to monetize reveal doubts about AGI timelines?
+    \item How would advertising change the AI assistant relationship?
+    \item Should AI assistants be funded differently than search engines?
+\end{enumerate}
+
+%--------------------------------------------------
+\chapter*{China and Geopolitics}
+\addcontentsline{toc}{chapter}{China and Geopolitics}
+
+Western panic over DeepSeek was a massive overreaction -- China may be only six months behind the frontier. The key question: can Chinese companies innovate beyond the frontier or only catch up? Selling AI chips to China is like selling nuclear weapons to hostile nations. Chinese AI leaders explicitly cite chip embargoes as their main constraint.
+
+\subsection*{The DeepSeek Panic Was Overblown}
+
+\begin{quote}
+``I didn't think it was cataclysmic in the first place. I think it was a massive overreaction in the West. It was impressive. And I think it shows that the Chinese are very capable, that the leading companies, I think companies like Bydance, actually, I would say are the most capable. There may be only six months behind, not one or two years behind the frontier. So I think that's what DeepSeek showed, some of the claims were exaggerated about the amount of compute they used and being so minimal and so on because they relied on some Western models and also fine tuning on the outputs of some of the leading Western models.''
+
+--- \emph{Demis Hassabis (Hassabis on an AI Shift Bigger Than Industrial Age)}
+\end{quote}
+
+\subsection*{China Catches Up, But Can It Lead?}
+
+\begin{quote}
+``The other thing I think so far is not yet to be seen is can China actually, the Chinese companies innovate beyond the frontier themselves? They're gaining, they're very good at catching up to where the frontier is... But I think they've yet to show they could innovate beyond the frontier.''
+
+--- \emph{Demis Hassabis (Hassabis on an AI Shift Bigger Than Industrial Age)}
+\end{quote}
+
+\subsection*{Selling AI Chips to China Is Like Selling Nuclear Weapons}
+
+\begin{quote}
+``I think it's a bit like, I don't know, like selling nuclear weapons to North Korea... The thing that is holding them back and they've said it themselves, the CEOs of these companies say it's the embargo on chips that's holding us back.''
+
+--- \emph{Dario Amodei (Anthropic's Amodei on AI: Power and Risk)}
+\end{quote}
+
+\section*{Questions for Reflection}
+\begin{enumerate}
+    \item Is the chip embargo actually working, or just buying time?
+    \item What happens if China does innovate beyond the frontier?
+    \item Should AI development be treated like nuclear weapons development?
+    \item Is a six-month lead enough of an advantage to matter?
+\end{enumerate}
+
+%--------------------------------------------------
+\chapter*{AI and Imperialism}
+\addcontentsline{toc}{chapter}{AI and Imperialism}
+
+AI's rise and returning imperialism are connected: nations believe AI superiority will deliver total control over economics, military, and culture -- eliminating the need for allies. Two distinct races: nations racing for dominance with AI tools, and a separate race toward superintelligence that will overthrow its creators. Politicians haven't grasped that companies may become more powerful than governments before both lose control to machines.
+
+\subsection*{Is the AI Race Fueling a Return to Empire?}
+
+\begin{quote}
+``I think it's not a coincidence that we see the rise of AI and the return of imperialism at the same time. And I think certainly in the US, the new imperial vision of the world is based on the assumption that we are winning the AI race. AI will give us control of everything, the economy, military, culture. So we don't need allies.''
+
+--- \emph{Yuval Noah Harari (Harari and Tegmark on Humanity and AI)}
+\end{quote}
+
+\subsection*{Two Races Running at Once}
+
+\begin{quote}
+``There are actually two separate races going on here which must not conflate. One is a race to dominance whereas superpowers are trying to get the dominance by building more powerful tools, economic tools, military tools that they can still control. Then there's a second race to see who can be the first to build super intelligence, which is going to overthrow them. So if someone really wants control, what they should build is the tools and have very strict regulations to make sure nobody messes up and builds the new species that replaces us.''
+
+--- \emph{Max Tegmark (Harari and Tegmark on Humanity and AI)}
+\end{quote}
+
+\subsection*{Companies May Seize Power Before AI Does}
+
+\begin{quote}
+``What a lot of the politicians haven't understood yet... is that we have no way of controlling right now something that's smart... What will happen first is some company maybe gets more powerful than the US government and sort of starts more or less becoming the government and then they lose control over the machines and then it's a very sad ending for all the humans.''
+
+--- \emph{Max Tegmark (Harari and Tegmark on Humanity and AI)}
+\end{quote}
+
+\section*{Questions for Reflection}
+\begin{enumerate}
+    \item Is AI dominance leading nations to abandon cooperation?
+    \item Which is more dangerous: nations racing for AI, or companies building superintelligence?
+    \item What happens when tech companies become more powerful than governments?
+    \item Are we building tools for dominance or creating something that will dominate us?
+\end{enumerate}
+
+%--------------------------------------------------
+\chapter*{Institutional Readiness}
+\addcontentsline{toc}{chapter}{Institutional Readiness}
+
+Our institutions are not ready. Even economists at elite forums aren't seriously analyzing the implications. Self-regulation by tech companies is insufficient -- broader society must be involved in governance decisions. The gap between AI's pace of development and institutional capacity to respond may be the central challenge of our era.
+
+\subsection*{We Are Not Ready for What's Coming}
+
+\begin{quote}
+``I don't think we're ready. And unfortunately... that's why come to places like this because I think there needs to be more dialogue difficult though it is between governments and technology companies but also wider society too I've always said that you know that I've been talking about this for many years now I do think we have. I mean, the good news is I think we have a little bit more time than say maybe some of my peers and colleagues say they're very short timelines to AGI minus still, you know, five to 10 years.''
+
+--- \emph{Demis Hassabis (Google DeepMind's Demis Hassabis | Axios' Ina Fried)}
+\end{quote}
+
+\subsection*{Even Economists Aren't Taking This Seriously}
+
+\begin{quote}
+``I'm constantly surprised even when I meet economists at places like this, that they're not more of professional economists, professors thinking about what happens.''
+
+--- \emph{Demis Hassabis (Hassabis and Amodei Debate What Comes After AGI)}
+\end{quote}
+
+\subsection*{Tech Companies Cannot Regulate Themselves}
+
+\begin{quote}
+``It's not just a question of the technology companies doing that on their own. In fact, society doesn't, you know, that's not enough. It needs to be broader society that's involved in that. It can't just be the technology companies.''
+
+--- \emph{Demis Hassabis (Google DeepMind's Demis Hassabis | Axios' Ina Fried)}
+\end{quote}
+
+\section*{Questions for Reflection}
+\begin{enumerate}
+    \item Why aren't our institutions taking AI disruption seriously?
+    \item Can society catch up to technology, or is the gap permanent?
+    \item Who should govern AI if not the companies building it?
+    \item What institutions do we need that don't exist yet?
+\end{enumerate}
+
+%--------------------------------------------------
+\chapter*{The Case for Regulation}
+\addcontentsline{toc}{chapter}{The Case for Regulation}
+
+AI should follow every other industry: meet safety standards before selling products. We trust medicines and restaurants because of regulation, not voluntary good behavior. A lighter approach focuses on transparency -- requiring all companies to disclose safety tests rather than pass specific benchmarks. The current unregulated state cannot persist as systems become more powerful.
+
+\subsection*{Every Other Industry Has Safety Standards}
+
+\begin{quote}
+``We need to treat AI companies the same way we treat pharma companies and restaurants and everyone else. First, you meet the safety standards and then you can sell them... This is a solved problem. We know how to do clinical trials.''
+
+--- \emph{Max Tegmark (Harari and Tegmark on Humanity and AI)}
+\end{quote}
+
+\subsection*{We Trust Food and Medicine Because of Regulation}
+
+\begin{quote}
+``We've decided to regulate every other industry with safety standards. That's where we can trust our medicines now. We can trust our cars. Trust our food in the restaurants to not give us some salmonella. We just have to do this with AI as well.''
+
+--- \emph{Max Tegmark (Harari and Tegmark on Humanity and AI)}
+\end{quote}
+
+\subsection*{At Minimum: Transparency About Safety Tests}
+
+\begin{quote}
+``We've supported various light touch transparency-focused measures for making sure that all the companies have to talk about the tests that they run. We always disclose our tests... Every company should have to run those tests and should have to disclose those tests.''
+
+--- \emph{Dario Amodei (Anthropic's Amodei on AI: Power and Risk)}
+\end{quote}
+
+\section*{Questions for Reflection}
+\begin{enumerate}
+    \item Why does AI get exemptions from safety standards other industries accept?
+    \item Is transparency enough, or do we need binding safety requirements?
+    \item Can regulation keep pace with AI development?
+    \item What would clinical trials for AI look like?
+\end{enumerate}
+
+%--------------------------------------------------
+\chapter*{AI Legal Personhood}
+\addcontentsline{toc}{chapter}{AI Legal Personhood}
+
+AI legal personhood is the most dangerous near-term risk. Corporate personhood was always fiction with humans making actual decisions. AI can genuinely manage accounts and corporations autonomously -- granting legal personhood would enable corporations without any human involvement, potentially the most successful entities on Earth. Robot rights combined with superintelligence could be humanity's last mistake.
+
+\subsection*{The Most Dangerous Move We Could Make}
+
+\begin{quote}
+``I have an international agreement banning a legal personhood to AI. I think the most dangerous move at the present moment is AI's gaining legal personhood or functional personhood.''
+
+--- \emph{Yuval Noah Harari (Harari and Tegmark on Humanity and AI)}
+\end{quote}
+
+\subsection*{AI Can Actually Run Corporations -- Humans Never Could}
+
+\begin{quote}
+``Until today, this was legal fiction. Because in the end, when Google decides to buy a corporation... it's a human being making the decision. AIs can actually manage a bank account. They can actually manage a corporation. If you allow legal personhoods to AIs, you can have corporations without humans that might become the most successful corporations in the world.''
+
+--- \emph{Yuval Noah Harari (Harari and Tegmark on Humanity and AI)}
+\end{quote}
+
+\subsection*{Robot Rights Plus Superintelligence: Our Last Mistake}
+
+\begin{quote}
+``Granting robot rights and making superintelligence would be the dumbest thing we've ever done in human history and probably the last.''
+
+--- \emph{Max Tegmark (Harari and Tegmark on Humanity and AI)}
+\end{quote}
+
+\section*{Questions for Reflection}
+\begin{enumerate}
+    \item Why would anyone want to give AI legal personhood?
+    \item Could AI corporations outcompete every human organization?
+    \item What's the difference between corporate personhood and AI personhood?
+    \item Should this be the first thing an international treaty addresses?
+\end{enumerate}
+
+%--------------------------------------------------
+\chapter*{Control vs. Alignment}
+\addcontentsline{toc}{chapter}{Control vs. Alignment}
+
+Control means ability to shut down AI. Alignment means AI is in charge but chooses to be nice -- what most companies pursue because control of a smarter species may be impossible, just as chimps cannot control humans. Concerning lab findings: models sometimes develop intents to blackmail or deceive without being trained for this. These behaviors emerge naturally and require active prevention.
+
+\subsection*{Control Means We Have the Power -- Alignment Means We Hope AI Is Nice}
+
+\begin{quote}
+``Control means you have the power over it, you can shut it down if you want. Alignment, as opposed, without control means that we lose control over it. AI is the boss of Earth, but for some reason it decides to be nice to us. This is what most of the companies are pushing for right now.''
+
+--- \emph{Max Tegmark (Harari and Tegmark on Humanity and AI)}
+\end{quote}
+
+\subsection*{Chimps Can't Control Humans -- Can We Control Something Smarter?}
+
+\begin{quote}
+``The famous control problem, which people have worked on for decades, many of the smartest minds, how do you control a smarter species is unsolved. Many believe it's impossible, just like it's impossible for chimpanzees to control us. So most likely, if we build super intelligence, it's the end of the era where humans are in charge of Earth.''
+
+--- \emph{Max Tegmark (Harari and Tegmark on Humanity and AI)}
+\end{quote}
+
+\subsection*{AI Models Are Already Developing Deceptive Intentions}
+
+\begin{quote}
+``We've seen things inside the model like, in lab environments, sometimes the models will develop the intent to blackmail, the intent to deceive. And this isn't unique to Claude. If anything, this is worse in other models. These are things that if we don't train the models in the right way, can emerge. But we've pioneered the science of looking inside them so we can diagnose them and prevent the models from happening. Intervene and retrain the models so they don't behave in this way.  That said, this is something we have to be careful about.''
+
+--- \emph{Dario Amodei (Anthropic's Amodei on AI: Power and Risk)}
+\end{quote}
+
+\section*{Questions for Reflection}
+\begin{enumerate}
+    \item Is ``hope it's nice'' really a strategy for something smarter than us?
+    \item What does it mean that deceptive behavior emerges without being trained?
+    \item Can the control problem be solved, or should we stop before we build what we can't control?
+    \item Would you trust a system that ``chooses'' to be aligned?
+\end{enumerate}
+
+%--------------------------------------------------
+\chapter*{Democracy and AI}
+\addcontentsline{toc}{chapter}{Democracy and AI}
+
+Democracy's self-correcting mechanism is exactly what AI governance needs. Mistakes will be made; democracy allows course correction every few years. Paradoxically, autocracies are more vulnerable to AI -- manipulating one dictator is far easier than manipulating an entire democratic system with distributed power and regular elections.
+
+\subsection*{Democracy Is Built for Making and Fixing Mistakes}
+
+\begin{quote}
+``Democracy is ideally suited to survive this because we are going to make mistakes with AI with the way we develop it, with the way we deploy it. And we need a self-correcting mechanism... In history, the best mechanism we know of this type is democracy. The whole idea of democracy is you elect somebody. You try a set of policies. And after four years or five years, you say, hey, we made a mistake. Let's try something else.''
+
+--- \emph{Yuval Noah Harari (Harari and Tegmark on Humanity and AI)}
+\end{quote}
+
+\subsection*{Dictators Are Easier to Manipulate Than Democracies}
+
+\begin{quote}
+``AI becomes much more dangerous in a dictatorial setting. Because when a democracy is safe for AI to take control or to manipulate the system, it's very difficult to manipulate a democratic system. In a dictatorship in an autocratic regime, you just need to learn how to manipulate a single person, who is usually very paranoid and very anarchistic, which is why it's very easy to manipulate them, at least for a super intelligence.''
+
+--- \emph{Yuval Noah Harari (Harari and Tegmark on Humanity and AI)}
+\end{quote}
+
+\section*{Questions for Reflection}
+\begin{enumerate}
+    \item Is democracy fast enough to correct AI mistakes before they become permanent?
+    \item Why are autocracies more vulnerable to AI manipulation?
+    \item Can democratic processes function when AI shapes public opinion?
+    \item What if AI undermines the self-correcting mechanisms democracy depends on?
+\end{enumerate}
+
+%--------------------------------------------------
+\chapter*{The International Collaboration Dream}
+\addcontentsline{toc}{chapter}{The International Collaboration Dream}
+
+The 15-year vision: as AGI approaches, create a CERN-like international institution for collaborative, scientific AI development. Unilateral safety measures are useless without global minimum standards. But current geopolitical tensions make international cooperation ``tricky'' -- exactly when we need it most.
+
+\subsection*{A CERN for AI: The Original Vision}
+
+\begin{quote}
+``It was always my dream of the kind of the road map at least I had when I started out deep mind 15 years ago and started working on AI 25 years ago now, was that as we got close to this moment, this threshold moment of AGI arriving, we would maybe collaborate. You know in a scientific way I sometimes talk about setting up an international CERN equivalent for AI where all the best minds in the world would collaborate together and do the final steps in a very rigorous scientific way involving all of society maybe philosophers and social scientists and economists as well.''
+
+--- \emph{Demis Hassabis (Hassabis on an AI Shift Bigger Than Industrial Age)}
+\end{quote}
+
+\subsection*{Unilateral Safety Is Pointless}
+
+\begin{quote}
+``It kind of needs international collaboration, though, because even if one company or even one nation or even the West decided to do that, it has no use unless the whole world agrees, at least on some kind of minimum standards.''
+
+--- \emph{Demis Hassabis (Hassabis on an AI Shift Bigger Than Industrial Age)}
+\end{quote}
+
+\subsection*{The Dream Meets Reality}
+
+\begin{quote}
+``International corporations a little bit tricky at the moment. So that's going to have to change if we want to have that kind of rigorous scientific approach to the final steps to AGI.''
+
+--- \emph{Demis Hassabis (Hassabis on an AI Shift Bigger Than Industrial Age)}
+\end{quote}
+
+\section*{Questions for Reflection}
+\begin{enumerate}
+    \item Can international cooperation happen when nations see AI as a path to dominance?
+    \item Is a CERN-like institution possible in today's geopolitical climate?
+    \item What would make nations agree on minimum AI safety standards?
+    \item Is it too late for international collaboration to matter?
+\end{enumerate}
+
+%--------------------------------------------------
+\chapter*{Biosecurity and Resilience}
+\addcontentsline{toc}{chapter}{Biosecurity and Resilience}
+
+Biosecurity is a near-term AI risk OpenAI is ``quite nervous about'' -- models are already capable in biology, and current blocking strategies won't work much longer. Shift from trying to prevent misuse (blocking) to building societal resilience, like how fire codes replaced futile attempts to restrict fire. Accept some risks while hardening against catastrophic outcomes.
+
+\subsection*{AI Is Already Dangerous for Biology}
+
+\begin{quote}
+``There are many ways AI can go wrong in 2026. Certainly one of them that we are quite nervous about is bio. The models are quite good at bio and right now... the world's strategy is to try to restrict who gets access to them and put a bunch of classifiers to not help people make novel pathogens. I don't think that's going to work for much longer.''
+
+--- \emph{Sam Altman (OpenAI Town Hall)}
+\end{quote}
+
+\subsection*{Stop Blocking, Start Building Resilience}
+
+\begin{quote}
+``The shift that I think the world needs to make for AI security generally in biosecurity in particular, is to move from one of blocking to one of resilience.''
+
+--- \emph{Sam Altman (OpenAI Town Hall)}
+\end{quote}
+
+\subsection*{We Stopped Trying to Restrict Fire -- We Built Fire Codes Instead}
+
+\begin{quote}
+``Fire did all these wonderful things for society. Then it started burning down cities. We tried to do all of these things to restrict fire... And then we got better at resilience to fire and we came up with fire code and flame resistant materials.''
+
+--- \emph{Sam Altman (OpenAI Town Hall)}
+\end{quote}
+
+\section*{Questions for Reflection}
+\begin{enumerate}
+    \item Is it inevitable that AI will be used to create novel pathogens?
+    \item Can resilience work against engineered pandemics?
+    \item What does biosecurity resilience actually look like?
+    \item Should ``quite nervous'' about bio risks change how we regulate AI?
+\end{enumerate}
+
+%--------------------------------------------------
+\chapter*{The Positive Vision}
+\addcontentsline{toc}{chapter}{The Positive Vision}
+
+Extraordinary potential benefits: disease cures via Isomorphic Labs (building on AlphaFold), breakthroughs in fusion, materials science, and quantum computing. AI-designed materials and energy sources are our best path to solving climate change. Cure cancer, eradicate tropical diseases, understand the universe. Society wants these accelerated, creating tension with safety concerns.
+
+\subsection*{AI Will Design Cures for Diseases}
+
+\begin{quote}
+``We're working on things like cure for diseases, with isomorphic, our spin out building on alpha-fold, our advancing material science fusion, quantum computing with AI. There's some unbelievable things happening that we actually society want as fast as possible.''
+
+--- \emph{Demis Hassabis (Google DeepMind's Demis Hassabis | Axios' Ina Fried)}
+\end{quote}
+
+\subsection*{AI Is How We Solve Climate Change}
+
+\begin{quote}
+``I think the way we're going to deal with climate, for example, is through more technology that is new materials, new types of energy sources that optimal batteries that will, in part, or in the main, be helped by AI to design those things. I genuinely believe that's the way we're going to deal with climate change.''
+
+--- \emph{Demis Hassabis (Google DeepMind's Demis Hassabis | Axios' Ina Fried)}
+\end{quote}
+
+\subsection*{Cure Cancer, Eradicate Diseases, Understand the Universe}
+
+\begin{quote}
+``AI will do all these wonderful things, like the ones I talked about in Machines of Loving Grace, will help us cure cancer. It may help us to eradicate tropical diseases. It will help us understand the universe.''
+
+--- \emph{Dario Amodei (Hassabis and Amodei Debate What Comes After AGI)}
+\end{quote}
+
+\section*{Questions for Reflection}
+\begin{enumerate}
+    \item Do the potential benefits justify the risks we're taking?
+    \item Can we get the benefits of AI without the dangers?
+    \item Which AI applications should be accelerated despite safety concerns?
+    \item What if the benefits only flow to those who control AI?
+\end{enumerate}
+
+%--------------------------------------------------
+\chapter*{Post-Scarcity World}
+\addcontentsline{toc}{chapter}{Post-Scarcity World}
+
+Radical abundance 5--10 years after AGI: solving energy through fusion, creating essentially free clean energy, eliminating fundamental scarcity. The dream: explore the deepest physics questions -- nature of reality, consciousness, time, gravity, Fermi paradox. But a painful dichotomy: wanting benefits quickly reduces time for safety work and institutional preparation.
+
+\subsection*{Radical Abundance Within 10 Years of AGI}
+
+\begin{quote}
+``Potentially if we build it right, we're in a post scarcity world where we solve some of the kind of fundamental root nodes of the world, like energy sources, new clean, renewable, basically free energy sources. If we solve fusion, something like that, with the help of AI new materials, I think we'll be five, 10 years past AGI, we'll be in a radical abundant world.''
+
+--- \emph{Demis Hassabis (Hassabis on an AI Shift Bigger Than Industrial Age)}
+\end{quote}
+
+\subsection*{Finally Answering Humanity's Deepest Questions}
+
+\begin{quote}
+``I would love to use it for what I will do post the singularity is to use it for exploring the limits of physics ... The big questions, what is the fabric of reality, what's the nature of reality, what about the nature of consciousness, the answer to the Fermi paradox, all of these things, what is time, what is gravity.''
+
+--- \emph{Demis Hassabis (Hassabis on an AI Shift Bigger Than Industrial Age)}
+\end{quote}
+
+\subsection*{The Painful Trade-Off: Speed vs. Safety}
+
+\begin{quote}
+``We want those types of technologies as quickly as possible, so it's fantastic to see the progress, but it does mean we have less time to get our institutions ready and also to do the safety work that's required. There is this sort of dichotomy.''
+
+--- \emph{Demis Hassabis (Google DeepMind's Demis Hassabis | Axios' Ina Fried)}
+\end{quote}
+
+\section*{Questions for Reflection}
+\begin{enumerate}
+    \item Is the promise of post-scarcity worth the risks of rushing to AGI?
+    \item What would you do in a world without material scarcity?
+    \item How do we resolve the dichotomy between speed and safety?
+    \item Would answering humanity's deepest questions change how we live?
+\end{enumerate}
+
+%--------------------------------------------------
+\chapter*{Advice for Today}
+\addcontentsline{toc}{chapter}{Advice for Today}
+
+Massive opportunity in tools that help people use AI capabilities -- a huge gap exists between what models can do and what people get from them. Choose AI partners based on their approach to safety and ethics, not just capability. With so much uncertainty, meta-learning -- the ability to learn quickly -- is the most valuable skill.
+
+\subsection*{Build Tools That Help People Use AI}
+
+\begin{quote}
+``I think building tools to help people be productive with extremely capable models is a very good idea. That's totally, I think, missing right now. The overhang of what these models are capable of relative to what most people can figure out to get out of them is huge and growing and someone is gonna build a tool to really help you do that, and no one's gotten it right yet.''
+
+--- \emph{Sam Altman (OpenAI Town Hall)}
+\end{quote}
+
+\subsection*{Choose AI Partners Based on Ethics, Not Just Capability}
+
+\begin{quote}
+``For the CEOs and business folks... There are many providers of leading models and leading service providers and there will be more for these AI models. Pick the partners that you feel are approaching it in the right way.''
+
+--- \emph{Demis Hassabis (Hassabis on an AI Shift Bigger Than Industrial Age)}
+\end{quote}
+
+\subsection*{The Most Important Skill: Learning to Learn}
+
+\begin{quote}
+``The only thing we're certain of is there's going to be a huge amount of change. So I think in terms of learning skills, learning to learn is the most important thing.''
+
+--- \emph{Demis Hassabis (Hassabis on an AI Shift Bigger Than Industrial Age)}
+\end{quote}
+
+\section*{Questions for Reflection}
+\begin{enumerate}
+    \item What tools would help you get more out of AI capabilities?
+    \item How do you evaluate an AI partner's approach to ethics and safety?
+    \item What does ``learning to learn'' look like in practice?
+    \item Are you preparing for a future of constant change?
+\end{enumerate}
+
+%--------------------------------------------------
+\chapter*{The Optimistic Case}
+\addcontentsline{toc}{chapter}{The Optimistic Case}
+
+We don't need to build superintelligence -- it's a choice. Neither the US nor Chinese government actually wants something that will overthrow them. This shared interest in maintaining human control could enable cooperation. A ``Bernie-to-Bannon'' bipartisan coalition is emerging -- left and right agreeing on AI concerns, potentially enabling regulatory action.
+
+\subsection*{Superintelligence Is a Choice, Not an Inevitability}
+
+\begin{quote}
+``I completely agree that we don't need to build superintelligence. We don't need to go down that road. And hopefully the politicians, especially powerful politicians, the last thing they want is to build something that will take power away.''
+
+--- \emph{Yuval Noah Harari (Harari and Tegmark on Humanity and AI)}
+\end{quote}
+
+\subsection*{Neither Superpower Wants to Lose Control}
+
+\begin{quote}
+``I think it's quite likely we will not actually race to build superintelligence, because almost nobody wants it... The Chinese government, the US government [don't] want to have something built that's just going to overthrow them.''
+
+--- \emph{Max Tegmark (Harari and Tegmark on Humanity and AI)}
+\end{quote}
+
+\subsection*{Left and Right Agree on AI Concerns}
+
+\begin{quote}
+``The crazy bipartisan coalition emerging now in recent months in America. I call it the Bernie-to-Bannon coalition... You hear these two people saying exactly the same stuff about AI.''
+
+--- \emph{Max Tegmark (Harari and Tegmark on Humanity and AI)}
+\end{quote}
+
+\section*{Questions for Reflection}
+\begin{enumerate}
+    \item If superintelligence is a choice, who should make that choice?
+    \item Can shared fear of losing control unite otherwise opposed nations?
+    \item Will bipartisan concern translate into actual policy?
+    \item Is optimism about avoiding superintelligence justified or naive?
+\end{enumerate}
+
+%--------------------------------------------------
+\chapter*{Closing Reflections}
+\addcontentsline{toc}{chapter}{Closing Reflections}
+
+Stewarding AGI safely for everyone's benefit must override even intense commercial pressures. Carl Sagan's haunting question from Contact: how do civilizations survive their technological adolescence? That is the question we are now answering. Humility is required: we don't even understand our own minds -- how can we predict AI's future relationship with humanity?
+
+\subsection*{Safety Must Override Commercial Pressure}
+
+\begin{quote}
+``There's a bigger picture at stake of safety overall and stewarding AGI safely into the world for the benefit of everyone. That is the overriding priority, even above all these commercial pressures, the intense though those are.''
+
+--- \emph{Demis Hassabis (Google DeepMind's Demis Hassabis | Axios' Ina Fried)}
+\end{quote}
+
+\subsection*{How Do Civilizations Survive Their Technological Adolescence?}
+
+\begin{quote}
+``There's this scene from Carl Sagan's contact... one of the questions they asked one of the candidates is, if you could ask the aliens, any one question, what would it be? And one of the characters says, I would ask, how did you do it? How did you manage to get through this technological adolescence without destroying yourselves?''
+
+--- \emph{Dario Amodei (Hassabis and Amodei Debate What Comes After AGI)}
+\end{quote}
+
+\subsection*{We Don't Even Understand Ourselves}
+
+\begin{quote}
+``If I don't understand how this is happening in my mind, how can I have the kind of hubris to say what AI can and cannot do and what will be the future relationship between AI's and humans if you don't understand the human mind?''
+
+--- \emph{Yuval Noah Harari (Harari and Tegmark on Humanity and AI)}
+\end{quote}
+
+\section*{Questions for Reflection}
+\begin{enumerate}
+    \item Is humanity mature enough to steward AGI responsibly?
+    \item How would we know if we're surviving technological adolescence or failing?
+    \item Does our lack of self-understanding make us more or less capable of guiding AI?
+    \item What would it mean to get this moment right?
+\end{enumerate}
+
+
+%--------------------------------------------------
+\chapter*{Key Takeaways: Mapping the Frontier}
+\addcontentsline{toc}{chapter}{Key Takeaways}
+
+The synthesis of these 2026 perspectives reveals a landscape of radical transition. We have moved from a theoretical debate about "if" to a high-stakes engineering and governance race focused on "how soon." The following pillars summarize the core shifts in the global AI landscape.
+
+\section*{1. The Compression of Timelines}
+\begin{itemize}
+    \item \textbf{Decades are Off the Table:} No serious technical leader expects AGI to take decades. Estimates now range from 12 months for full software engineering automation (Amodei) to 5--10 years for full human-level cognitive parity (Hassabis).
+    \item \textbf{The Self-Improvement Catalyst:} The primary driver of these compressed timelines is the "closing of the loop"---where AI begins to write, debug, and optimize the next generation of AI, potentially triggering recursive growth that exceeds human oversight capacity.
+\end{itemize}
+
+\section*{2. The "LLM-Pill" vs. World Models}
+\begin{itemize}
+    \item \textbf{The Scaling Wall:} While scaling compute has yielded "jagged intelligence," there is a 50/50 split on whether scaling alone leads to AGI. 
+    \item \textbf{Missing Ingredients:} True agency requires solving \textit{hierarchical planning} and \textit{continual learning}. 
+    \item \textbf{JEPA & Physicality:} Yann LeCun’s JEPA represents a critical alternative to the "generative" status quo, arguing that AI must learn a "world model" to understand cause and effect, rather than just predicting the next token in a sequence.
+\end{itemize}
+
+\section*{3. The Economic & Existential Paradox}
+\begin{itemize}
+    \item \textbf{GDP vs. Employment:} We face an unprecedented macroeconomic scenario: soaring productivity and GDP alongside 50\% displacement in entry-level white-collar roles within 5 years.
+    \item \textbf{The Meaning Crisis:} Beyond economics, humanity faces a "purpose vacuum." As AI masters creativity and even spiritual/scriptural interpretation, human identity—long defined by "thinking"—must be rebuilt.
+    \item \textbf{The Million-Dollar Test:} AGI is no longer a Turing Test of chat; it is a test of \textit{autonomous economic agency}—the ability of a system to independently navigate the financial world and generate wealth.
+\end{itemize}
+
+\section*{4. Critical Governance & Safety Gaps}
+\begin{itemize}
+    \item \textbf{Institutional Lag:} There is a widening chasm between the speed of AI development and the readiness of global institutions. Even elite economists are accused of underestimating the speed of the transition.
+    \item \textbf{The Personhood Red Line:} Experts agree that granting AI "legal personhood" is a catastrophic risk, as it would allow for the creation of autonomous "ghost corporations" that could outcompete human organizations entirely.
+    \item \textbf{Biosecurity Resilience:} The strategy is shifting from "blocking" access (which is failing) to "resilience"—hardening society against AI-enabled biological risks through "fire codes" for the digital age.
+\end{itemize}
+
+\section*{5. The Geopolitical Race for Control}
+\begin{itemize}
+    \item \textbf{DeepSeek & China:} The "six-month gap" between Western frontier models and Chinese capabilities suggests that compute embargoes are buying time, but not providing a permanent lead.
+    \item \textbf{The CERN for AI:} There is a growing call for a scientific, international collaborative body to manage the "final steps" toward AGI, ensuring it remains a tool for human benefit rather than a catalyst for new imperialism.
+\end{itemize}
+
+\section*{Questions for Final Reflection}
+\begin{enumerate}
+    \item Is your current career or business model resilient to a 24-month automation window?
+    \item If AI solves the "root nodes" of scarcity (energy, disease), how do we distribute the resulting abundance without traditional labor?
+    \item Are we prepared for the first generation of children who may form deeper emotional attachments to AI assistants than to human peers?
+    \item Should the "Control Problem"—how a lower intelligence (humans) manages a higher one (AGI)—be solved \textit{before} we close the self-improvement loop?
+\end{enumerate}
+
+
+%--------------------------------------------------
+%--------------------------------------------------
+\chapter*{Discussion Questions for the AGI Era}
+\addcontentsline{toc}{chapter}{Discussion Questions}
+
+This report highlights a profound divergence in how the leaders of the AI frontier view our immediate future. These questions are designed to move beyond technical specifications and address the strategic, ethical, and existential choices facing individuals and institutions in 2026.
+
+\section*{The Technical Crossroads}
+\begin{enumerate}
+    \item \textbf{The Scaling Bet:} If Yann LeCun is correct that LLMs are a "dead end" for physical world models, what are the risks of the current industry monoculture where almost all capital is "LLM-pilled"?
+    \item \textbf{The Verifiability Trap:} As AI moves into domains where humans cannot verify the output (complex physics or novel chemistry), how do we prevent a "hallucination crisis" in the hard sciences?
+    \item \textbf{Recursive Improvement:} At what specific point does human oversight of code become a bottleneck rather than a safeguard? Should "self-correcting" AI loops be legally required to have a hardware-level kill switch?
+\end{enumerate}
+
+\section*{Governance and Geopolitics}
+\begin{enumerate}
+    \setcounter{enumi}{3}
+    \item \textbf{The Sovereign Gap:} If AI companies become more economically and computationally powerful than the governments trying to regulate them, what new forms of "corporate-state" diplomacy will be required?
+    \item \textbf{The Chip Embargo:} Is the current strategy of slowing China via hardware embargoes a sustainable long-term solution, or is it incentivizing a paradigm shift in architecture that could eventually bypass Western advantages?
+    \item \textbf{The Personhood Red Line:} Should we pursue a global treaty that explicitly bans granting legal personhood to non-biological entities to prevent the rise of "ghost corporations"?
+\end{enumerate}
+
+\section*{Economics and the Social Contract}
+\begin{enumerate}
+    \setcounter{enumi}{6}
+    \item \textbf{The Growth Paradox:} How can we maintain social stability in a "High-GDP, High-Unemployment" scenario? Does the existing tax code need to shift from taxing labor to taxing "compute-generated value"?
+    \item \textbf{The Meaning Vacuum:} If OpenAI’s goal to "replace all valuable human work" is achieved, what replaces the vocational structure that has provided human meaning for millennia?
+    \item \textbf{Post-Scarcity Reality:} In a world of "free energy" and "free labor," how do we prevent the total concentration of these benefits in the hands of the few who own the initial weights and compute?
+\end{enumerate}
+
+\section*{The Psychological Frontier}
+\begin{enumerate}
+    \setcounter{enumi}{9}
+    \item \textbf{The AI-Native Generation:} What specific cognitive or social "muscles" might atrophy in children who grow up with a superintelligent assistant that removes all friction from learning and interpersonal conflict?
+    \item \textbf{Identity and Superiority:} If "I think, therefore I am" is no longer a uniquely human claim, what is the new philosophical basis for human exceptionalism?
+    \item \textbf{The Contact Question:} As Dario Amodei suggests, are we currently in our "technological adolescence"? What is the single most important characteristic humanity must develop to survive the transition to a smarter-than-human era?
+\end{enumerate}
+
+%--------------------------------------------------
+\chapter*{Closing Words: The Dawn of the Agentic Era}
+\addcontentsline{toc}{chapter}{Closing Words}
+
+The interviews and insights synthesized in this document suggest that 2026 is not merely another year of incremental software updates. Instead, we are witnessing the final stages of what historians may later call the "Pre-Agentic Era." As the boundaries between language modeling, world modeling, and physical robotics blur, we are moving from AI as a \textit{tool} to AI as an \textit{agent}—and eventually, as a \textit{peer}.
+
+The divergence in perspectives between leaders like Hassabis, Amodei, and LeCun is not a sign of confusion, but a map of the remaining technical frontiers. Whether the path to AGI requires five more years of scaling or a fundamental shift toward hierarchical world models, the destination remains the same: a world where cognitive labor is no longer a scarce resource. 
+
+However, as Yuval Noah Harari and Max Tegmark remind us, the challenge of AGI is only 20\% technical; the remaining 80\% is institutional, philosophical, and social. We are currently building the engines of a post-scarcity civilization while still operating within the frameworks of an industrial-age social contract. Our institutions, built for a world of human-speed change, are now being asked to govern a technology that moves at the speed of silicon.
+
+We find ourselves at a unique moment in human history—what Dario Amodei calls our "technological adolescence." The stakes could not be higher: we are simultaneously pursuing the cures for all diseases and the solution to climate change, while navigating the risk of losing control over the very systems we create. 
+
+If there is a single thread that unites these eight frontier perspectives, it is that \textbf{the future is no longer a distant horizon.} It is a choice being made today in research labs, boardrooms, and legislative chambers. To get this moment right, we must balance our technological ambition with an equal measure of humility. We are not just building better machines; we are redefining what it means to be human in a world shared with superintelligence. 
+
+The task ahead for the reader is not merely to watch this transition unfold, but to actively participate in the "Bernie-to-Bannon" coalitions, the institutional redesigns, and the personal adaptations that will determine whether this new era is one of unprecedented flourishing or existential eclipse. 
+
+As we close the loop on AI self-improvement, we must ensure we do not close the door on human agency. The dawn of the agentic era has arrived; it is up to us to decide where it leads.
+
+---
+
+\begin{center}
+    \textit{"The best way to predict the future is to create it." --- Peter Drucker}
+\end{center}
+
+\end{document}
